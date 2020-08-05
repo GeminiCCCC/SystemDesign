@@ -5,3 +5,5 @@ Benefits:
   a. clients get content from server close to them
   
   b. your server does not need to serve the traffic for the content
+
+**2. if you have web server, you can move the session related data into cache (Redis) to allow autoscaling (when creating new node, no need to copy session data from original node, can simply create all new nodes at the same time)**
