@@ -15,3 +15,11 @@
 **3. use master slave to reduce load from write master, only write to master and only read from slave**
 
 **4. can also add load balancers in front of read replicas**
+
+**5. CAP**
+
+CA - RDBMS, Neo4J(graph)
+
+AP - Riak(KV), Couchbase(Document Stores), Cassandra(Column Oriented)
+
+CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
