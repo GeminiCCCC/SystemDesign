@@ -24,11 +24,21 @@ AP - Riak(KV), Couchbase(Document Stores), Cassandra(Column Oriented)
 
 CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
 
-KV: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multipl key or joins
+**KV**: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multipl key or joins
 
-Document Stores: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio
+**Document Stores**: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio
 
-Column Oriented: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation
+**Column Oriented**: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation
+
+**Cassandra:**
+
+a. no master-slave, instead peer-to-peer (protocal "gossip")
+
+b. high availability and tunable consistency (since A and C are opposite, in order to get C you have to wait until all nodes are consistent which will decrease A), conflicts are solved during reads as focus lies on write-performance
+
+c. Data is stored in sparse multidimensional hash tables, each row has unique key(used by partitioning), and each row has non-fixed number of sorted key/value pairs(each pair is a column). Map(RowKey, SortedMap<ColumnKey, ColumnValue>> (RowKey should be hashed, in order to distribute data across the cluster evenly)
+
+d. Optimized for writing, but fast read are possible as well
 
 **6. Redis vs Memcached**
 
