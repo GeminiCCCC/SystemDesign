@@ -24,6 +24,12 @@ AP - Riak(KV), Couchbase(Document Stores), Cassandra(Column Oriented)
 
 CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
 
+KV: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multipl key or joins
+
+Document Stores: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio
+
+Column Oriented: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation
+
 **6. Redis vs Memcached**
 
 a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greately increase the IO counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
