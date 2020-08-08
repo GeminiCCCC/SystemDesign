@@ -12,7 +12,7 @@
 
 **2. if you have web server, you can move the session related data into cache (Redis) to allow autoscaling (when creating new node, no need to copy session data from original node, can simply create all new nodes at the same time)**
 
-**3. use master slave to reduce load from write master, only write to master and only read from slave**
+**3. use master slave to reduce load from write master, only write to master and only read from slave (MongoDB)**
 
 **4. can also add load balancers in front of read replicas**
 
@@ -39,6 +39,24 @@ b. high availability and tunable consistency (since A and C are opposite, in ord
 c. Data is stored in sparse multidimensional hash tables, each row has unique key(used by partitioning), and each row has non-fixed number of sorted key/value pairs(each pair is a column). Map(RowKey, SortedMap<ColumnKey, ColumnValue>> (RowKey should be hashed, in order to distribute data across the cluster evenly)
 
 d. Optimized for writing, but fast read are possible as well
+
+e. has no aggregation framework and requires external tools like Hadoop, Spark and others
+
+f. is a much more stationary database. It facilitates static typing and demands categorization and definition of columns beforehand.
+
+g. only has cursor support for the secondary index. Its queries are limited to single columns and equality comparisions.
+
+**MongoDB:**
+
+a. JSON style document store, and can support richer data model than Cassandra
+
+b. single master directing multiple slaves, if master node goes down, it make take up to 1 minute to elect a slave node to become the master. And during this time there is no availability
+
+c. has built-in aggregation framework, but is only efficient when working with small or medium-sized data traffic
+
+d. does not require a schema, natually making it more adaptable to change
+
+e. has high-quality second indexes
 
 **6. Redis vs Memcached**
 
