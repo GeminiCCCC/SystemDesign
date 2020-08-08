@@ -69,3 +69,13 @@ c. Memcached all data storage occurs in memory while for Redis when the phiscal 
 d. Redis support data persistence: RDB snapshot and AOF log, while Memcached does not support data persistence operations.
 
 e. Memcached itself does not support distributed mode, You can only achieve it on the client side through distributed algorithms such as Consistent Hashing. While Redis Cluster supports the distrbuted mode from server side
+
+**7. Kafka**
+
+a. pub/sub messaging rethought as a distributed commit log
+
+b. consumer controls his own state, using an (offset, length) style API
+
+c. Messages are persistent
+
+
