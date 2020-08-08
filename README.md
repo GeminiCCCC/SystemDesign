@@ -78,4 +78,17 @@ b. consumer controls his own state, using an (offset, length) style API
 
 c. Messages are persistent
 
+**8. Load balancer and reverse proxy**
+
+a. both have SSL termination
+
+b. LB has session persistence
+
+c. reverse proxy has compression, caching etc..
+
+d. use LB if you have multiple servers
+
+e. solution such as NGINX and HAProxy can support both layer 7 LB and reverse proxying
+
+f. reverse proxy is comparing with forward proxy, where forward proxy exists on the client side and reverse proxy exists on the server side
 
