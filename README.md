@@ -94,4 +94,4 @@ f. reverse proxy is comparing with forward proxy, where forward proxy exists on 
 
 g. LB/reverse proxy secures the backend web servers from attack, as the only network connections they need to open are from the secure LB
 
-**9. when designing messaging systems, use XMPP (extensible messaging presence protocal)
+**9. when designing messaging systems, use XMPP (extensible messaging presence protocal)**
