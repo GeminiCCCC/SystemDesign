@@ -92,3 +92,5 @@ e. solution such as NGINX and HAProxy can support both layer 7 LB and reverse pr
 
 f. reverse proxy is comparing with forward proxy, where forward proxy exists on the client side and reverse proxy exists on the server side
 
+g. LB/reverse proxy secures the backend web servers from attack, as the only network connections they need to open are from the secure LB
+
