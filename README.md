@@ -107,3 +107,5 @@ a. instead send each click to the database directly, send the count to the Kafka
 b. we can also add API gateway between client and LB, and the API gateway can batch the request and send the data in one reqeust to LB
 
 c. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
+
+d. if processing service cannot keep up with the load, for example because of a super hot video. what can you do? we can batch the event data into an object store, such as S3 and then send a message to the message broker, then we will have a bit cluter of machines to retrieve the messages from the message queue, read the data from S3 and process them. This approach is a bit slower than stream processing, but faster than batch processing
