@@ -28,7 +28,7 @@ CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
 
 **Document Stores**: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio
 
-**Column Oriented**: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation
+**Column Oriented**: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation. Good for time-series data.
 
 **Cassandra:**
 
