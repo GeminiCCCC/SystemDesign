@@ -94,4 +94,16 @@ f. reverse proxy is comparing with forward proxy, where forward proxy exists on 
 
 g. LB/reverse proxy secures the backend web servers from attack, as the only network connections they need to open are from the secure LB
 
-**9. when designing messaging systems, use XMPP (extensible messaging presence protocal)**
+**9. Design Messaging System**
+
+a. use XMPP (extensible messaging presence protocal)
+
+b. use session services to store which user is connecting to which gateway box, and then route the message to the correct gateway box
+
+**10. Design youtube video view counts**
+
+a. instead send each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And send the counter to database every few seconds
+
+b. we can also add API gateway between client and LB, and the API gateway can batch the request and send the data in one reqeust to LB
+
+b. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
