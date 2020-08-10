@@ -109,3 +109,9 @@ b. we can also add API gateway between client and LB, and the API gateway can ba
 c. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
 
 d. if processing service cannot keep up with the load, for example because of a super hot video. what can you do? we can batch the event data into an object store, such as S3 and then send a message to the message broker, then we will have a bit cluter of machines to retrieve the messages from the message queue, read the data from S3 and process them. This approach is a bit slower than stream processing, but faster than batch processing
+
+**11. if the data is too much to be stored in the cache, we can dump the data to the disk and then use MapReduce service to aggregate the data from disk**
+
+**12. better serialize data into binary format to save network IO (Apache Avro)**
+
+**13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
