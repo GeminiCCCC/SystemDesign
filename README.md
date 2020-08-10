@@ -106,4 +106,4 @@ a. instead send each click to the database directly, send the count to the Kafka
 
 b. we can also add API gateway between client and LB, and the API gateway can batch the request and send the data in one reqeust to LB
 
-b. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
+c. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
