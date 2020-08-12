@@ -104,31 +104,31 @@ b. use session services to store which user is connecting to which gateway box, 
 
 **10. Design youtube video view counts**
 
-a. instead send each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And send the counter to database every few seconds
+a. instead send each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And flush the counter data to database every few seconds
 
 b. we can also add API gateway between client and LB, and the API gateway can batch the request and send the data in one reqeust to LB
 
 c. data roll up, after a while roll up data per minute to per hour, and more time later, roll up data per hour to per day. And move cold data to object store
 
-d. if processing service cannot keep up with the load, for example because of a super hot video. what can you do? we can batch the event data into an object store, such as S3 and then send a message to the message broker, then we will have a bit cluter of machines to retrieve the messages from the message queue, read the data from S3 and process them. This approach is a bit slower than stream processing, but faster than batch processing
+d. if processing service cannot keep up with the load, for example because of a super hot video. what can you do? we can batch the event data into an object store, such as S3 and then send a message to the message broker, then we will have a big cluster of machines to retrieve the messages from the message queue, read the data from S3 and process them. This approach is a bit slower than stream processing, but faster than batch processing
 
 **11. if the data is too much to be stored in the cache, we can dump the data to the disk and then use MapReduce service to aggregate the data from disk**
 
 **12. better serialize data into binary format to save network IO (Apache Avro)**
 
-**13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
+**13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory**
 
-**14. in queue each message is consumed by one consumer while in topic, each message is goes to all the subscribers**
+**14. in queue each message is consumed by one consumer while in topic, each message goes to all the subscribers**
 
 **15. how each host talks to other hosts?**
 
 a. first approach is message broadcasting, tell everyone everything. This approach is easy to implement and works for small cluster but not scalable, as the hosts increased the messages need to be broadcasts will be increased quadratically.
 
-b. second is gossip protocal, with a given frequcency, each machine picks another machine randomly and shares data (Yahoo use this
+b. second is gossip protocal, within a given frequcency, each machine picks another machine randomly and shares data (Yahoo use this)
 
-c. thrid is use distributed cache (Redis)
+c. thrid is to use distributed cache (Redis)
 
-d. forth is coordication service (choose one host as a leader and other nodes only share data with leader)
+d. forth is coordination service (choose one host as a leader and other nodes only share data with leader), or a separate Zookeeper coordination service 
 
 e. TCP vs UDP: TCP guarantees delivery of data and the packets will be delivered in the same order they were sent; UDP does not guarantee the order of the packets, but it's faster. So if we want more accurate with a bit performance overhead then TCP; otherwise UDP
 
