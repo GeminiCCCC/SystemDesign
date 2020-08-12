@@ -26,9 +26,11 @@ CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
 
 **KV**: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multipl key or joins
 
-**Document Stores**: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio
+**Document Stores**: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio; if each record is not that big and has limited size (e.g not more than 1MB, then probably we don't need to use Document  stores)
 
 **Column Oriented**: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation. Good for time-series data.
+
+**Graph Stores**: If you need relationships between record, use graph stores
 
 **Cassandra:**
 
@@ -133,3 +135,9 @@ e. TCP vs UDP: TCP guarantees delivery of data and the packets will be delivered
 **16. how to do retry?**
 
 exponential backoff and jitter: every retry interval will increased exponentially and plus a random number to prevent many retries happen at the same time
+
+**17. how host find which distributed cache node?**
+
+a. ask centralized configuration service (e.g ZooKeeper) about which node to connect
+
+b. ask any node (gossip protocal)
