@@ -141,3 +141,11 @@ exponential backoff and jitter: every retry interval will increased exponentiall
 a. ask centralized configuration service (e.g ZooKeeper) about which node to connect
 
 b. ask any node (gossip protocal)
+
+**18. how many QPS can different database handle?**
+
+And this value comes from the CPU frequency
+
+SQL - 1k/s
+
+Cassandra - 10k/s 
