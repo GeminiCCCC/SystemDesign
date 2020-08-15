@@ -149,3 +149,21 @@ And this value comes from the CPU frequency
 SQL - 1k/s
 
 Cassandra - 10k/s 
+
+**19. Long Polling vs WebSockets**
+
+Long Polling: 
+
+a. client sends an XMLHttpRequest/AJAX request - > server doesnot immediately respond but wait until there is new data available -> server responds with new data -> clients receives the data and initiate next request immediately
+
+b. Message ordering and delivery not guarantee.
+
+c. performance and scaling not good
+
+d. server side load is heavy
+
+WebSockets:
+
+a. computer communication protocal which provides full-duplex communication channels over a single TCP connection (guarantee message ordering and delivery)
+
+b. different from HTTP but compatible with HTTP
