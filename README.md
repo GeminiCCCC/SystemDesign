@@ -80,6 +80,8 @@ b. consumer controls his own state, using an (offset, length) style API
 
 c. Messages are persistent
 
+d. after putting message into queue, how to get the result from the message? one way is after putting message into queue, we will have a taskId, and once the task is finished processing, the result will be stores in some places and producer will periodically check if the taskId is finished or not.
+
 **8. Load balancer and reverse proxy**
 
 a. both have SSL termination
