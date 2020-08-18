@@ -60,6 +60,8 @@ d. does not require a schema, natually making it more adaptable to change
 
 e. has high-quality second indexes
 
+f. Each record will have a UUID (unique object Id) consists of 12 bytes: 4 bytes = Unix timstamp, 3 bytes = machine Id, 2 bytes = session Id, 3 bytes = seq. Cons of UUID is too long, takes too much space and searching is slow
+
 **6. Redis vs Memcached**
 
 a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greately increase the IO counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
