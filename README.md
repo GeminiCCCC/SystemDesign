@@ -171,3 +171,14 @@ WebSockets:
 a. computer communication protocal which provides full-duplex communication channels over a single TCP connection (guarantee message ordering and delivery)
 
 b. different from HTTP but compatible with HTTP
+
+**20. HTTP status codes**
+
+1xx information response - the request was received, continuing process  
+2xx successful - request was successfully received, understood, and accepted  
+3xx redirections - further action needs to be taken in order to complete the request  
+4xx client error - the request contains bad syntax or cannot be fulfilled  
+5xx server error - the server failed to fulfil and apparently valid request
+
+check https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for more details
+
