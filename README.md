@@ -48,6 +48,8 @@ f. is a much more stationary database. It facilitates static typing and demands 
 
 g. only has cursor support for the secondary index. Its queries are limited to single columns and equality comparisions.
 
+h. how to store user followers data: key is user1 and value is a set of users that user1 is following
+
 **MongoDB:**
 
 a. JSON style document store, and can support richer data model than Cassandra
