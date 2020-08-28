@@ -184,3 +184,7 @@ b. different from HTTP but compatible with HTTP
 
 check https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for more details
 
+**21. MySQL**
+
+a. not good for queuing store  
+b. use MySQL partitioning to reclaim used file space
