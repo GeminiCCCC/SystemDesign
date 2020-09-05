@@ -188,3 +188,8 @@ check https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for more details
 
 a. not good for queuing store  
 b. use MySQL partitioning to reclaim used file space
+
+**22. HTTP 1.1 vs HTTP 2**
+
+a. 1.1 can only make one request per connection, if the previous request got stuck the next request has to wait. This can be avoid by opening mutiple HTTP connections, but it could be limited by the HTTP pool size or by a browser's limit on the number of concurrent connections. Whereas 2.0 on the other side offers multiplexing the requests to the server.  
+b. 2.0 sends less packet between client and server by converting plain text to binary format which will also reduce the network latency
