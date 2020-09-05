@@ -193,3 +193,8 @@ b. use MySQL partitioning to reclaim used file space
 
 a. 1.1 can only make one request per connection, if the previous request got stuck the next request has to wait. This can be avoid by opening mutiple HTTP connections, but it could be limited by the HTTP pool size or by a browser's limit on the number of concurrent connections. Whereas 2.0 on the other side offers multiplexing the requests to the server.  
 b. 2.0 sends less packet between client and server by converting plain text to binary format which will also reduce the network latency
+
+**23. gRPC is being used among microservices**
+
+a. implemented on top of HTTP 2  
+b. gRPC server can easily served by clients written in different languages by using protobuf compiler. (generate gRPC subs from service definition (.proto files) in any of supported languages and then deploy the stub to the client)
