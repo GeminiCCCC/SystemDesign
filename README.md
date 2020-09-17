@@ -198,3 +198,8 @@ b. 2.0 sends less packet between client and server by converting plain text to b
 
 a. implemented on top of HTTP 2  
 b. gRPC server can easily served by clients written in different languages by using protobuf compiler. (generate gRPC subs from service definition (.proto files) in any of supported languages and then deploy the stub to the client)
+
+**24. Hadoop**
+
+a. not good for low-latency data access, because HDFS is optimized for delivering a high throughput of data at the expense of latency. HBase is a better choice for low-latency access  
+b. not good for lots of small files, because the namenode holds filesystem metadata in memory, as a rule of thumb each file, directory and block takes about 150 bytes. If you have one million files, each taking one block, you would need at least 300MB of memory, and the memory becomes a bottleneck to process many small files
