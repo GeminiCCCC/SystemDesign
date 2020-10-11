@@ -203,3 +203,27 @@ b. gRPC server can easily served by clients written in different languages by us
 
 a. not good for low-latency data access, because HDFS is optimized for delivering a high throughput of data at the expense of latency. HBase is a better choice for low-latency access  
 b. not good for lots of small files, because the namenode holds filesystem metadata in memory, as a rule of thumb each file, directory and block takes about 150 bytes. If you have one million files, each taking one block, you would need at least 300MB of memory, and the memory becomes a bottleneck to process many small files
+
+## 25. time and space efficiency cannot be obtained at the same time, and most of time, since space is easy to achieve (even for memory) we usally go with time efficiency 
+
+for example, when designing data structure for ElasticSearch:  
+first approach: easy to query but have redundant data, 1M sku * 2KB = 2G in memory not problem  
+{  
+  skuId:1  
+  spuId:11  
+  skuTitle:Huawei  
+  price:445  
+  saleCount: 99  
+  attr:[  
+    {size: 5 inches},  
+    {CPU: Qualcomm 945},  
+    {Resolution: High}  
+  ]  
+}  
+
+second apprach: save memory but when high current query happening, internet IO will be too much, for example first query "xiaomi" returned us 10000 sku and those 10000 sku belong to 4000 spu, so the second query esClient will pass 4000 spuId to ES -> 4000 * 8 bytes(long type) = 32kb, if there are 10000 people search product at the same time then -> 32kb * 10,000 = 320mb, if there are 1M people then 32G data gets transferred over internet -> internet conjestion  
+{  
+  skuId:1  
+  spuId:11  
+  xxx  
+}
