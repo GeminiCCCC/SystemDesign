@@ -18,3 +18,5 @@ for amazon prime day case, store product_stock (e.g 10) to redis, then let appli
 ## 4. use Circuit breaker (for controlling the load pression for the entire system), just add annotation on the service will a callback method and threshold, and when reaching the threshold, the call back method will respond error page.
 
 ## 5. use Rate Limiter (for controlling the access for one user)
+
+## 6. before the peak event happens, downgrade unnecessary services, like comments, history data etc...  by returning some pre-defined data directly w/o querying backend DB
