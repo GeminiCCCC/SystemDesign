@@ -227,3 +227,7 @@ second apprach: save memory but when high current query happening, internet IO w
   spuId:11  
   xxx  
 }
+
+## 26. Nginx
+
+a. when forwarding request to gateway, it will lose host info: e.g gulimall.com, so that the gateway domain route will fail. to fix it, add "proxy_set_header Host $host;" to server config file location section
