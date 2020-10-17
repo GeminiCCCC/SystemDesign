@@ -1,4 +1,4 @@
-**1. if have static content such as HTML/CSS/JS, photos, and videos etc.. store them in a seperate NoSQL database. And use CDN (Content Delivery Network) to deliver to clients. The site's DNS resolution will tell clients which server to contact.**
+## 1. if have static content such as HTML/CSS/JS, photos, and videos etc.. store them in a seperate NoSQL database. And use CDN (Content Delivery Network) to deliver to clients. The site's DNS resolution will tell clients which server to contact.
 
 1.1 Benefits:
 
@@ -10,13 +10,13 @@
 
 1.3 if the system is not large enough to have its own CDN, we can use lightweight web server like Nginx, and cutover the DNS from our servers to a CDN later
 
-**2. if you have web server, you can move the session related data into cache (Redis) to allow autoscaling (when creating new node, no need to copy session data from original node, can simply create all new nodes at the same time)**
+## 2. if you have web server, you can move the session related data into cache (Redis) to allow autoscaling (when creating new node, no need to copy session data from original node, can simply create all new nodes at the same time)
 
-**3. use master slave to reduce load from write master, only write to master and only read from slave (MongoDB)**
+## 3. use master slave to reduce load from write master, only write to master and only read from slave (MongoDB)
 
-**4. can also add load balancers in front of read replicas**
+## 4. can also add load balancers in front of read replicas
 
-**5. CAP**
+## 5. CAP
 
 CA - RDBMS, Neo4J(graph)
 
@@ -64,7 +64,7 @@ e. has high-quality second indexes
 
 f. Each record will have a UUID (unique object Id) consists of 12 bytes: 4 bytes = Unix timstamp, 3 bytes = machine Id, 2 bytes = session Id, 3 bytes = seq. Cons of UUID is too long, takes too much space and searching is slow
 
-**6. Redis vs Memcached**
+## 6. Redis vs Memcached
 
 a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greately increase the IO counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
 
@@ -76,7 +76,7 @@ d. Redis support data persistence: RDB snapshot and AOF log, while Memcached doe
 
 e. Memcached itself does not support distributed mode, You can only achieve it on the client side through distributed algorithms such as Consistent Hashing. While Redis Cluster supports the distrbuted mode from server side
 
-**7. Kafka**
+## 7. Kafka
 
 a. pub/sub messaging rethought as a distributed commit log
 
@@ -86,7 +86,7 @@ c. Messages are persistent
 
 d. after putting message into queue, how to get the result from the message? one way is after putting message into queue, producer will receive acknowledgement with message reference, and once the message is finished processing, the result will be stores in some places and producer will periodically use the acknowledgement to check if the message is finished or not.
 
-**8. Load balancer and reverse proxy**
+## 8. Load balancer and reverse proxy
 
 a. both have SSL termination
 
@@ -98,17 +98,17 @@ d. use LB if you have multiple servers
 
 e. solution such as NGINX and HAProxy can support both layer 7 LB and reverse proxying
 
-f. reverse proxy is comparing with forward proxy, where forward proxy exists on the client side and reverse proxy exists on the server side
+f. reverse proxy is comparing with forward proxy, where forward proxy exists on the client side and reverse proxy exists on the server side. e.g use forward proxy to access google.com in China and hide client information. reverse proxy is with the server to hide microservices ip addresses from internet
 
 g. LB/reverse proxy secures the backend web servers from attack, as the only network connections they need to open are from the secure LB
 
-**9. Design Messaging System**
+## 9. Design Messaging System
 
 a. use XMPP (extensible messaging presence protocal)
 
 b. use session services to store which user is connecting to which gateway box, and then route the message to the correct gateway box
 
-**10. Design youtube video view counts**
+## 10. Design youtube video view counts
 
 a. instead send each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And flush the counter data to database every few seconds
 
@@ -118,15 +118,15 @@ c. data roll up, after a while roll up data per minute to per hour, and more tim
 
 d. if processing service cannot keep up with the load, for example because of a super hot video. what can you do? we can batch the event data into an object store, such as S3 and then send a message to the message broker, then we will have a big cluster of machines to retrieve the messages from the message queue, read the data from S3 and process them. This approach is a bit slower than stream processing, but faster than batch processing
 
-**11. if the data is too much to be stored in the cache, we can dump the data to the disk and then use MapReduce service to aggregate the data from disk**
+## 11. if the data is too much to be stored in the cache, we can dump the data to the disk and then use MapReduce service to aggregate the data from disk
 
-**12. better serialize data into binary format to save network IO (Apache Avro)**
+## 12. better serialize data into binary format to save network IO (Apache Avro)
 
-**13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory**
+## 13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
 
-**14. in queue each message is consumed by one consumer while in topic, each message goes to all the subscribers**
+## 14. in queue each message is consumed by one consumer while in topic, each message goes to all the subscribers
 
-**15. how each host talks to other hosts?**
+## 15. how each host talks to other hosts?
 
 a. first approach is message broadcasting, tell everyone everything. This approach is easy to implement and works for small cluster but not scalable, as the hosts increased the messages need to be broadcasts will be increased quadratically.
 
@@ -138,17 +138,17 @@ d. forth is coordination service (choose one host as a leader and other nodes on
 
 e. TCP vs UDP: TCP guarantees delivery of data and the packets will be delivered in the same order they were sent; UDP does not guarantee the order of the packets, but it's faster. So if we want more accurate with a bit performance overhead then TCP; otherwise UDP
 
-**16. how to do retry?**
+## 16. how to do retry?
 
 exponential backoff and jitter: every retry interval will increased exponentially and plus a random number to prevent many retries happen at the same time
 
-**17. how host find which distributed cache node?**
+## 17. how host find which distributed cache node?
 
 a. ask centralized configuration service (e.g ZooKeeper) about which node to connect
 
 b. ask any node (gossip protocal)
 
-**18. how many QPS can different database handle?**
+## 18. how many QPS can different database handle?
 
 And this value comes from the CPU frequency
 
@@ -156,7 +156,7 @@ SQL - 1k/s
 
 Cassandra - 10k/s 
 
-**19. Long Polling vs WebSockets**
+## 19. Long Polling vs WebSockets
 
 Long Polling: 
 
@@ -174,7 +174,7 @@ a. computer communication protocal which provides full-duplex communication chan
 
 b. different from HTTP but compatible with HTTP
 
-**20. HTTP status codes**
+## 20. HTTP status codes
 
 1xx information response - the request was received, continuing process  
 2xx successful - request was successfully received, understood, and accepted  
@@ -184,22 +184,22 @@ b. different from HTTP but compatible with HTTP
 
 check https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for more details
 
-**21. MySQL**
+## 21. MySQL
 
 a. not good for queuing store  
 b. use MySQL partitioning to reclaim used file space
 
-**22. HTTP 1.1 vs HTTP 2**
+## 22. HTTP 1.1 vs HTTP 2
 
 a. 1.1 can only make one request per connection, if the previous request got stuck the next request has to wait. This can be avoid by opening mutiple HTTP connections, but it could be limited by the HTTP pool size or by a browser's limit on the number of concurrent connections. Whereas 2.0 on the other side offers multiplexing the requests to the server.  
 b. 2.0 sends less packet between client and server by converting plain text to binary format which will also reduce the network latency
 
-**23. gRPC is being used among microservices**
+## 23. gRPC is being used among microservices
 
 a. implemented on top of HTTP 2  
 b. gRPC server can easily served by clients written in different languages by using protobuf compiler. (generate gRPC subs from service definition (.proto files) in any of supported languages and then deploy the stub to the client)
 
-**24. Hadoop**
+## 24. Hadoop
 
 a. not good for low-latency data access, because HDFS is optimized for delivering a high throughput of data at the expense of latency. HBase is a better choice for low-latency access  
 b. not good for lots of small files, because the namenode holds filesystem metadata in memory, as a rule of thumb each file, directory and block takes about 150 bytes. If you have one million files, each taking one block, you would need at least 300MB of memory, and the memory becomes a bottleneck to process many small files
