@@ -20,3 +20,5 @@ for amazon prime day case, store product_stock (e.g 10) to redis, then let appli
 ## 5. use Rate Limiter (for controlling the access for one user)
 
 ## 6. before the peak event happens, downgrade unnecessary services, like comments, history data etc...  by returning some pre-defined data directly w/o querying backend DB
+
+## 7. windows by ddefault provide port 1024-5000 to TCP/IP and will recycle them after 4 minutes, if there are many concurrent connection, it will used up all ports, then request will fail, to fix this. go to regedit, add MaxUserPort=65534 and TCPTimedWaitDelay=30 to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
