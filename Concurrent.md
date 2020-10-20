@@ -25,4 +25,8 @@ for amazon prime day case, store product_stock (e.g 10) to redis, then let appli
 
 ## 8. when improving performance, 1. check if it's CPU intensive or IO intensive, CPU intensive means lots of calculation, sorting. IO intensive means intenet transfer, disk IO, memory IO (redis), SQL IO. To improve CPU performance, add more servers (more CPU). To improve IO performance, add hard drive add more memory, upgrade network card
 
-## 9. how to improve traffic through multiple middlewares (e.g nginx, gateway), add more memory, use better cable, use more advanced proxy
+## 9. how to improve traffic throughput 
+
+a. through multiple middlewares (e.g nginx, gateway): add more memory, use better cable, use more advanced proxy  
+b. page rendering speed: enable template framework cache  
+c. sql: add index
