@@ -231,3 +231,5 @@ second apprach: save memory but when high current query happening, internet IO w
 ## 26. Nginx
 
 a. when forwarding request to gateway, it will lose host info: e.g gulimall.com, so that the gateway domain route will fail. to fix it, add "proxy_set_header Host $host;" to server config file location section
+
+b. nginx is CPU heavy, because it needs to use CPU to calculate how to provide more threads and how to switch between threads
