@@ -29,4 +29,5 @@ for amazon prime day case, store product_stock (e.g 10) to redis, then let appli
 
 a. through multiple middlewares (e.g nginx, gateway): add more memory, use better cable, use more advanced proxy  
 b. page rendering speed: enable template framework cache  
-c. sql: add index
+c. sql: add index  
+d. move static resources e.g img, js to nginx, then configure (in nginx gulimall.conf) all request starts with /static go to nginx data folder /user/share/nginx/html which maps to /mydata/nginx/html in ngingx docker image
