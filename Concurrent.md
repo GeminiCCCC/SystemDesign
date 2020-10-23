@@ -39,4 +39,4 @@ a. cache penetration: 100k requests trying to query the same key which does not 
 b. cache avalanche: many data expires at the same time or cache service is down  
 **Solution**: 1. add random time(e.g 1- 5 mins) after TTL. 2. if use redis can use redis cluster. 3. use circuit breaker and rate limit  
 c. cache breakdown: e.g one hot key expires at night (e.g iphone 12), and next moment 100k iphone 12 queries come in at the same time, and 100k will all hit DB, similar to cache penetration  
-**Solution**: 1. add lock on the searched key so that other threads will wait。 2. use queue
+**Solution**: 1. add lock on the searched key so that other threads will wait, if we use local lock it can only lock current service instance. Which means if we have 100 service instances, we will have 100 locks and upt to 100 requests can hit the DB (already restricted concurrent DB query from 100k to 100). We can use distributed lock, but speed of distributed lock will be a bit slow。 2. use queue.
