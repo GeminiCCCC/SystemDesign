@@ -43,6 +43,6 @@ b. cache avalanche: many data expires at the same time or cache service is down
 c. cache breakdown: e.g one hot key expires at night (e.g iphone 12), and next moment 100k iphone 12 queries come in at the same time, and 100k will all hit DB, similar to cache penetration  
 **Solution**: 1. add lock on the searched key so that other threads will wait, if we use local lock it can only lock current service instance. Which means if we have 100 service instances, we will have 100 locks and upt to 100 requests can hit the DB (already restricted concurrent DB query from 100k to 100). We can use distributed lock, but speed of distributed lock will be a bit slow。 2. use queue.
 
-d. data consistency:  
-  d.1 write to both DB and cache  
-  d.2 write to DB and remove from cache (better)
+d. data consistency (cache data is always eventual consistency, so if data is being updated very frequently, then should not use cache):  
+  d.1 write to both DB and cache (issue: second thread might update cache first, then first thread update cache afterwards. solution: add lock or add TTL if temporary dirty data is allowed)  
+  d.2 write to DB and remove from cache (better, but will also have dirty data issue)
