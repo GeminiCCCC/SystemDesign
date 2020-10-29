@@ -46,3 +46,5 @@ c. cache breakdown: e.g one hot key expires at night (e.g iphone 12), and next m
 d. data consistency (cache data is always eventual consistency, so if data is being updated very frequently, then should not use cache):  
   d.1 write to both DB and cache (issue: second thread might update cache first, then first thread update cache afterwards. solution: add lock or add TTL if temporary dirty data is allowed)  
   d.2 write to DB and remove from cache (better, but will also have dirty data issue)
+  
+  # 11. should use thread pool instead of creating new thread for each task
