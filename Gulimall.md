@@ -17,7 +17,7 @@ b. Not idempotent: increase qty
 
 solution:
 
- 1 - token: before sending business request, get token and store it to Redis in server. add token to the request and on the server side check if token exists in redis, if it exists then execute and delete token. If not exists, means duplicate requests, just ingore it  
+ 1 - token: before going to the submit order page, service will use store a token (key=ORDER_TOKEN_PREFIX+userId, value = UUID, expiry = 30 minutes) to Redis. same token will also be stored to the webpage in a hidden field, then user click submit order. add token to the request and on the server side check if token exists in redis, if it exists then execute and delete token. If not exists, means duplicate requests, just ingore it  
  2 - for data only want to be processed once, we can calculate its MD5 value and store it to Redis, it already exists then do not process it
 
 ## 4. Redis
