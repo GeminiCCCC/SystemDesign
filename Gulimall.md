@@ -18,3 +18,7 @@ b. Not idempotent: increase qty
 solution:
 
  1 - token: before sending business request, get token and store it to Redis in server. add token to the request and on the server side check if token exists in redis, if it exists then execute and delete token. If not exists, means duplicate requests, just ingore it
+
+## 4. Redis
+
+a. use lua script to ensure atomicity, put the operations that need to have atomicty to lua script and let Redis execute it, and Redis will ensure the atomicity
