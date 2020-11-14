@@ -23,3 +23,8 @@ solution:
 ## 4. Redis
 
 a. use lua script to ensure atomicity, put the operations that need to have atomicty to lua script and let Redis execute it, and Redis will ensure the atomicity
+
+## 5. Distributed transaction
+
+a. SEATA has TM (Transaction manager), RM (Resource manager) and TC (Transaction controller), business start service will create TM and RM is configured on each service, TC is global controller. any service failed, TC will know which services need to roll back.  
+b. SEATA AT mode how to roll back commited data, create undo_log for each service. It will record the original value before any change. When it needs to roll back it will just use the original value to update again
