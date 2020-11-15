@@ -27,4 +27,5 @@ a. use lua script to ensure atomicity, put the operations that need to have atom
 ## 5. Distributed transaction
 
 a. SEATA has TM (Transaction manager), RM (Resource manager) and TC (Transaction controller), business start service will create TM and RM is configured on each service, TC is global controller. any service failed, TC will know which services need to roll back.  
-b. SEATA AT mode how to roll back commited data, create undo_log in each service's database. It will record the original value before any change. When it needs to roll back it will just use the original value to update again
+b. SEATA AT mode how to roll back commited data, create undo_log in each service's database. It will record the original value before any change. When it needs to roll back it will just use the original value to update again  
+c. but SEATA is not good for high concurrency since it will make many locks to do the global TC control, so to handle this issue we can use message queue to notify the remote service to roll back its committed operation
