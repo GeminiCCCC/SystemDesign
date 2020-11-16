@@ -32,4 +32,5 @@ c. but SEATA is not good for high concurrency since it will make many locks to d
 
 ## 6. Message queue
 
-a. to guarantee message delivery to MQ: 1) retry when failed. 2) log success or fail (create log table in DB), then periodically scan log table for failed logs and resend
+a. to guarantee message delivery to MQ: 1) retry when failed. 2) log success or fail (create log table in DB), then periodically scan log table for failed logs and resend  
+b. to handle double delivery: 1) make sure consumer's logic is idempotent (e.g always check status before update) 2) create log tables for each message in redis/mysql, always check if message has been processed before using it again, similar to the first solution 3) RabbitMQ has Redelivered status, but need to check if it's a valid redelivery or not
