@@ -24,11 +24,11 @@ AP - Riak(KV), Couchbase(Document Stores), Cassandra(Column Oriented)
 
 CP - Redis(KV), MongoDB(Document Stores), HBase(Column Oriented)
 
-**KV**: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multipl key or joins
+**KV**: Simple schema; High velocity read/write with no frequent updates; High performance and scalability; No complex queries involving multiple key or joins
 
-**Document Stores**: Flexible schema with complex queryihng; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio; if each record is not that big and has limited size (e.g not more than 1MB, then probably we don't need to use Document  stores)
+**Document Stores**: Flexible schema with complex querying; JSON/BSON or XML data formats; Leverage complex Indexes(multikey, geospatial, full text search etc); High performance and balanced R:W ratio; if each record is not that big and has limited size (e.g not more than 1MB, then probably we don't need to use Document  stores)
 
-**Column Oriented**: High volumn of data; Extreme write speeds with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation. Good for time-series data.
+**Column Oriented**: High volumn of data; Extreme write speed with relatively less velocity or reads; Data extractions by columns using row keys; No ad-hoc query patterns, complex indices or high level of aggregation. Good for time-series data.
 
 **Graph Stores**: If you need relationships between record, use graph stores
 
@@ -54,7 +54,7 @@ h. how to store user followers data: key is user1 and value is a set of users th
 
 a. JSON style document store, and can support richer data model than Cassandra
 
-b. single master directing multiple slaves, if master node goes down, it make take up to 1 minute to elect a slave node to become the master. And during this time there is no availability
+b. single master directing multiple slaves, if master node goes down, it may take up to 1 minute to elect a slave node to become the master. And during this time there is no availability
 
 c. has built-in aggregation framework, but is only efficient when working with small or medium-sized data traffic
 
@@ -68,7 +68,7 @@ f. Each record will have a UUID (unique object Id) consists of 12 bytes: 4 bytes
 
 a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greately increase the IO counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
 
-b. Redis only uses single core whilc Memchased utilizes multiple cores. So Redis will perform better with small data storage. Memcaches outperforms Redis for storing data of 100k or above
+b. Redis only uses single core while Memcached utilizes multiple cores. So Redis will perform better with small data storage. Memcaches outperforms Redis for storing data of 100k or above
 
 c. Memcached all data storage occurs in memory while for Redis when the phiscal memory is full Redis swap values not used for a long time to the disk.
 
@@ -124,7 +124,7 @@ d. if processing service cannot keep up with the load, for example because of a 
 
 ## 13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
 
-## 14. in queue each message is consumed by one consumer while in topic, each message goes to all the subscribers
+## 14. in queue each message is consumed by one consumer, while in topic each message goes to all the subscribers
 
 ## 15. how each host talks to other hosts?
 
@@ -132,7 +132,7 @@ a. first approach is message broadcasting, tell everyone everything. This approa
 
 b. second is gossip protocal, within a given frequcency, each machine picks another machine randomly and shares data (Yahoo use this)
 
-c. thrid is to use distributed cache (Redis)
+c. third is to use distributed cache (Redis)
 
 d. forth is coordination service (choose one host as a leader and other nodes only share data with leader), or a separate Zookeeper coordination service 
 
@@ -160,7 +160,7 @@ Cassandra - 10k/s
 
 Long Polling: 
 
-a. client sends an XMLHttpRequest/AJAX request - > server doesnot immediately respond but wait until there is new data available -> server responds with new data -> clients receives the data and initiate next request immediately
+a. client sends an XMLHttpRequest/AJAX request - > server does not immediately respond but wait until there is new data available -> server responds with new data -> clients receives the data and initiate next request immediately
 
 b. Message ordering and delivery not guarantee.
 
