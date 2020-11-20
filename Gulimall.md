@@ -40,4 +40,6 @@ c. how to handle too many messages stuck in the MQ: 1) limit pubisher sending ra
 
 a. assign a random code (UUID) for each product for current second kill event, and store it to Redis. This random code will only be available when the second kill starts, so that it can prevent attack because the request need both skuId and random code to communicate with server  
 b. use product count as redis semaphore to only allow certain amount of requests to communicate with service, key is prefix + product random code (use random code to prevent url attack, incase someone knows the productId)  
-c. second kill should have its own service, to that it will not affect other services
+c. second kill should have its own service, to that it will not affect other services  
+d. after clicking submit button, prompt to enter a capcha code to 1: block bots. 2: allocate 1m request per second to 1m request per few seconds since entering a capcha will take different time for each person  
+e. A calls B calls C, if calling B always failed, stopped calling B and return an error code immediately, so that the entire calling chain will not be blocked at B
