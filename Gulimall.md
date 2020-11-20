@@ -38,5 +38,6 @@ c. how to handle too many messages stuck in the MQ: 1) limit pubisher sending ra
 
 ## 7. second kill
 
-a. assign a random code (UUID) for each product for current second kill event, and store it to Redis, so that it can prevent attack because the request need both skuId and random code to communicate with server  
-b. use product count as redis semaphore to only allow certain amount of requests to communicate with service, key is prefix + product random code (use random code to prevent url attack, incase someone knows the productId)
+a. assign a random code (UUID) for each product for current second kill event, and store it to Redis. This random code will only be available when the second kill starts, so that it can prevent attack because the request need both skuId and random code to communicate with server  
+b. use product count as redis semaphore to only allow certain amount of requests to communicate with service, key is prefix + product random code (use random code to prevent url attack, incase someone knows the productId)  
+c. second kill should have its own service, to that it will not affect other services
