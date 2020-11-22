@@ -238,3 +238,7 @@ b. nginx is CPU heavy, because it needs to use CPU to calculate how to provide m
 
 DB maintain Bloom filter mapping for each table, when a query comes in, bloom filter will use a fixed number of hashing function to get several hasing values, if any value does does not exist then we are 100% sure the value is not in the table, if all values can be found, then we are pretty sure the value exists in table but not 100% (depending on how many hashing functiosn the bloom filters have, the more hashing functions the more closely it to 100%)  
 So there could be false positive but impossible to have false negative, and when we have a positive we usually go to query the table again to make sure it's there
+
+## Docker and Kubernetes
+
+1. Vituralization wastes many resource because each VM will have its own OS and complement deployment including all dependencies. Docker instead uses Container for each app and will use very small resource. All containers share the same OS, while each container has its own file system, CPU, memory, processes etc. Since docker decoupled from OS it can be easily ported across different cloud platform and different OS
