@@ -66,11 +66,11 @@ f. Each record will have a UUID (unique object Id) consists of 12 bytes: 4 bytes
 
 ## 6. Redis vs Memcached
 
-a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greately increase the IO counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
+a. Redis supports server-end data operations and owns more data structures and supports richer data operations. For complicated data operation Memcached will needs to copy data to client side and then set the data back which will greatly increase the I/O counts. So if you need cache to support more complicated structures and operations, Redis is a good choise. Memcached only supports simple K-V structure while Redis supports String, Hash, List and Sorted Set
 
 b. Redis only uses single core while Memcached utilizes multiple cores. So Redis will perform better with small data storage. Memcaches outperforms Redis for storing data of 100k or above
 
-c. Memcached all data storage occurs in memory while for Redis when the phiscal memory is full Redis swap values not used for a long time to the disk.
+c. Memcached all data storage occurs in memory while for Redis when the physical memory is full Redis swaps values not used for a long time to the disk.
 
 d. Redis support data persistence: RDB snapshot and AOF log, while Memcached does not support data persistence operations.
 
@@ -110,7 +110,7 @@ b. use session services to store which user is connecting to which gateway box, 
 
 ## 10. Design youtube video view counts
 
-a. instead send each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And flush the counter data to database every few seconds
+a. instead sending each click to the database directly, send the count to the Kafka queue and processing service will consume the event and aggregate the count in in-memory counter. And flush the counter data to database every few seconds
 
 b. we can also add API gateway between client and LB, and the API gateway can batch the request and send the data in one reqeust to LB
 
@@ -122,7 +122,7 @@ d. if processing service cannot keep up with the load, for example because of a 
 
 ## 12. better serialize data into binary format to save network IO (Apache Avro)
 
-## 13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always parition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
+## 13. when designing data streaming system, we will need to keep reducing the request rate. From billions of requests from each client, then we pre_aggregate data on each API gateway host for several seconds and then go to Kafka. And we can always partition data into different partitions and process each partition of data in parallel, and then aggregate data in memory
 
 ## 14. in queue each message is consumed by one consumer, while in topic each message goes to all the subscribers
 
@@ -130,7 +130,7 @@ d. if processing service cannot keep up with the load, for example because of a 
 
 a. first approach is message broadcasting, tell everyone everything. This approach is easy to implement and works for small cluster but not scalable, as the hosts increased the messages need to be broadcasts will be increased quadratically.
 
-b. second is gossip protocal, within a given frequcency, each machine picks another machine randomly and shares data (Yahoo use this)
+b. second is gossip protocal, within a given frequcency, each machine picks another machine randomly and shares data (Yahoo uses this)
 
 c. third is to use distributed cache (Redis)
 
@@ -140,7 +140,7 @@ e. TCP vs UDP: TCP guarantees delivery of data and the packets will be delivered
 
 ## 16. how to do retry?
 
-exponential backoff and jitter: every retry interval will increased exponentially and plus a random number to prevent many retries happen at the same time
+exponential backoff and jitter: every retry interval will increase exponentially and plus a random number to prevent many retries happen at the same time
 
 ## 17. how host find which distributed cache node?
 
