@@ -196,8 +196,10 @@ b. 2.0 sends less packet between client and server by converting plain text to b
 
 ## 23. gRPC is being used among microservices
 
+a. RPC daemon(stub) running on remote server which constantly listening on a port waiting for request comes in  
+b. client invoke remote procedure -> stub on the client will package the parameters into a form that can be transmitted over a network -> A similar stub on the server side receives the message and invokes the procedure -> if there is returned value, it's passed back to the client using the same technique  
 a. implemented on top of HTTP 2  
-b. gRPC server can easily served by clients written in different languages by using protobuf compiler. (generate gRPC subs from service definition (.proto files) in any of supported languages and then deploy the stub to the client)
+b. gRPC server can easily served by clients written in different languages by using protobuf compiler. (generate gRPC stubs from service definition (.proto files) in any of supported languages and then deploy the stub to the client)
 
 ## 24. Hadoop
 
