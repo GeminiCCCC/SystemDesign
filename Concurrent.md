@@ -12,7 +12,7 @@ Conclusion, use Pessimistic lock if there are many collisions and use Optimistic
 for amazon prime day case, store product_stock (e.g 10) to redis, then let application route the request to redis instead of mysql
 
 ## 3. how to make sure two DBs data are in sync when needs to update two DBs in different locations?   
-  a - use Distributed Transaction: use Transaction Coordinator, if any write failed, notify all the other actions to do rallback  
+  a - use Distributed Transaction: use Transaction Coordinator, if any write failed, notify all the other actions to do rollback  
   b - use Message Queue: if update to a DB failed, we can use MQ to repeatly process the event until it succeeded. 
   
 ## 4. use Circuit breaker (for controlling the load pression for the entire system), just add annotation on the service with a callback method and threshold, and when reaching the threshold, the call back method will respond error page.
