@@ -243,7 +243,7 @@ So there could be false positive but impossible to have false negative, and when
 
 ## 28. Docker and Kubernetes
 
-a. Vituralization wastes many resource because each VM will have its own OS and complement deployment including all dependencies. Docker instead uses Container for each app and will use very small resource. All containers share the same OS, while each container has its own file system, CPU, memory, processes etc. Since docker decoupled from OS it can be easily ported across different cloud platform and different OS  
+a. Virtualization wastes many resource because each VM will have its own OS and complement deployment including all dependencies. Docker instead uses Container for each app and will use very small resource. All containers share the same OS, while each container has its own file system, CPU, memory, processes etc. Since docker decoupled from OS it can be easily ported across different cloud platform and different OS  
 b. Kebernetes uses Pod which containes one or more containers, Pod is the minimum operating unit  
 c. Service groups multiple pods together and will expose a service level IP
 
