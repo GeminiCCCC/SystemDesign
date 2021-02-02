@@ -23,7 +23,7 @@ for amazon prime day case, store product_stock (e.g 10) to redis, then let appli
 
 ## 7. windows by default provide port 1024-5000 to TCP/IP and will recycle them after 4 minutes, if there are many concurrent connection, it will used up all ports, then request will fail, to fix this. go to regedit, add MaxUserPort=65534 and TCPTimedWaitDelay=30 to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
 
-## 8. when improving performance, 1. check if it's CPU intensive or IO intensive, CPU intensive means lots of calculation, sorting. IO intensive means intenet transfer, disk IO, memory IO (redis), SQL IO. To improve CPU performance, add more servers (more CPU). To improve IO performance, add hard drive add more memory, upgrade network card
+## 8. when improving performance, 1. check if it's CPU intensive or IO intensive, CPU intensive means lots of calculation, sorting. IO intensive means internet transfer, disk IO, memory IO (redis), SQL IO. To improve CPU performance, add more servers (more CPU). To improve IO performance, add hard drive add more memory, upgrade network card
 
 ## 9. how to improve traffic throughput 
 
