@@ -250,3 +250,8 @@ c. Service groups multiple pods together and will expose a service level IP
 ## 29. Spark and Hadoop
 
 a. Hadoop stores result to disk while Spark stores intermediate result to memory which is much faster.
+b. Coarse-grained meaning we can transform the whole dataset but not an individual element on the dataset. While fine-grained means we can transform individual element on the dataset.
+
+## 30. Spark and Flink
+
+a. Flink offers true native streaming, while Spark uses micro batches to emulate streaming. That means Flink processes each event in real-time and provides very low latency. Spark, by using micro-batching, can only deliver near real-time processing. For many use cases, Spark provides acceptable performance levels. 
