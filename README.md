@@ -258,5 +258,5 @@ a. Flink offers true native streaming, while Spark uses micro batches to emulate
 
 ## 31. H3 and S2
 
-a. Hexagon's all 6 neighbors have same distance to to center, while squares's 8 neighbors have different distance. 
+a. Hexagon's all 6 neighbors have same distance to to center, while squares's 8 neighbors have different distance.  
 b. H3 converts long/lag into a 64 bits integer which can save 50% space comparing to store long/lat pairs, and also faster than text
