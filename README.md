@@ -255,3 +255,8 @@ b. Coarse-grained meaning we can transform the whole dataset but not an individu
 ## 30. Spark and Flink
 
 a. Flink offers true native streaming, while Spark uses micro batches to emulate streaming. That means Flink processes each event in real-time and provides very low latency. Spark, by using micro-batching, can only deliver near real-time processing. For many use cases, Spark provides acceptable performance levels. 
+
+## 31. H3 and S2
+
+a. Hexagon's all 6 neighbors have same distance to to center, while squares's 8 neighbors have different distance. 
+b. H3 converts long/lag into a 64 bits integer which can save 50% space comparing to store long/lat pairs, and also faster than text
