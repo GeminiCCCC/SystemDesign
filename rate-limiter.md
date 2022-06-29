@@ -47,3 +47,13 @@ pros:
 
 cons:
 * use lot of memoery since even a request is rejected, its timestamp might still be stored in memoery
+
+## 5. sliding window counter ##
+a. current window request + previous window requests * percentage of overlap between sliding window and previous window, e.g. previous window has 5, current window has 3, and overlap is 70%. 3 + 5 * 0.7 = 6.5 < 7, so the request will be accepted
+
+pros:
+* smooths out spike traffic because it is based on average rate of previous window
+* memoery efficient since we use counter
+
+cons:
+* assume previous window requests are evenly distributed, calculation is not 100% accurate. But according to experiments only 0.003% of requests are wrongly allowed
