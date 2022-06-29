@@ -36,3 +36,14 @@ pros:
 
 cons:
 * burst traffic at edges of time windows could cause more traffic than allowed quota
+
+## 4. sliding window log ##
+a. store each request timestamp in redis as sorted set.  
+b. when a new request comes in, remove all outdated timestamp who are older than the start of the current window, then add new request time window.  
+c. if log size <= allowed count, accept the request, otherwise reject it
+
+pros:
+* very accurate
+
+cons:
+* use lot of memoery since even a request is rejected, its timestamp might still be stored in memoery
