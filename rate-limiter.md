@@ -26,3 +26,13 @@ pros:
 cons:
 * cannot support burst traffic
 * hard to tune given there are 2 parameters
+
+## 3. fixed window ##
+
+pros:
+* memoery efficient
+* easy to understand
+* reset available quota at the end of time window fits certain cases
+
+cons:
+* burst traffic at edges of time windows could cause more traffic than allowed quota
