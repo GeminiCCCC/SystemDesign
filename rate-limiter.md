@@ -61,3 +61,9 @@ cons:
 # Rate limiting rules
 
 can use yaml config file to store
+
+# Others
+
+a. when a request is rate limited, api returns http code 429 (too many requests).  
+b. depending on the use cases, we may enqueue the requests to be processed layer. e.g order creations.  
+c. client can get remaining number of allowed requests, limit threshold from the response header
