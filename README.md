@@ -267,11 +267,17 @@ c. finest H3 resolution is 1 square meters
 a. Snapshot isolation readers never block writers, and writers never block readers.  
 b. 2PL readers block both readers and writers and same for writers, 2 phase means the first phase is when the locks are acquired, and the second phase is when all the locks are released.  
 
-## Database race conditions:
+## 33. Database race conditions
 
 a. Dirty reads: one client reads another client's writes before they have been committed. The read committed isolation and stronger levels prevent dirty reads.  
 b. Dirty writes: one client overwrites data that another client has written, but not yet committed. Almost all transaction implementations prevent dirty writes.  
 c. Read skew (nonrepeatable reads): A client sees different parts of the database at different points in time. Snapshot isolation can prevent it, which allows a transaction to read from a consistent snapshot at one point in time. It is usually implemented with multi-version concurrency control(MVCC).  
 d. Lost updates: two clients concurrently perform a read-modify-write cycle. One overwrites the other's write without incorporating its changes, so data is lost. Some implementations of snapshot isolation prevent this anomaly automatically, while others require manual lock (select for update).  
 e. Write skew: A transaction reads something, makes a decision based on the value it saw, and writes the decision to the database. However, by the time the write is made, the premise of the decision is no longer true. Only serializable isolation prevents this anomaly.  
-f. Phantom reads: A transaction reads objects that match some search condition. Another client makes write that affects the results of tht search. Snapshot isolation prevents straightforward phantom reads, but phantoms in the context of write skew require special treatment, such as index-range locks
+f. Phantom reads: A transaction reads objects that match some search condition. Another client makes write that affects the results of tht search. Snapshot isolation prevents straightforward phantom reads, but phantoms in the context of write skew require special treatment, such as index-range locks. 
+
+## 34. Implementing seriallizable transactions
+
+a. Literally executing transactions in a serial order: If you can make each transaction very fast to execute, and the transaction throughput is low enough to process on a single CPU core, this is a simple and effective option.  
+b. 2PL: For decades this has been the standard way of implementing serializability, but many applications avoid using it because of its peformance characteristics.  
+c. Serializable snapshot isolation (SSI): a fairly new alogrithm that avoids most of the downsides of the previous approaches. It uses an optimistic approach, allowing transactions to proceed without blocking. When a transaction wants to commit, it is checked, and it is aborted if the excecution was not serializable.
