@@ -62,8 +62,33 @@ cons:
 
 can use yaml config file to store
 
-# Others
+# Design details
 
 a. when a request is rate limited, api returns http code 429 (too many requests).  
 b. depending on the use cases, we may enqueue the requests to be processed layer. e.g order creations.  
 c. client can get remaining number of allowed requests, limit threshold from the response header
+
+# Race condition
+
+Locks are obvious solution but will significantly slow down the system. Use Lua script and sorted sets data structure in Redis
+
+# Synchronization issue
+
+a. use sticky sessions that allow a client to send traffic to the same rate limiter. But it is neigher scalable nor flexible.  
+b. a better approach is to use centralized data stores like Redis
+
+# Performance optimization
+
+a. use multi-data center to route use requests to the closest data center to reduce latency.  
+b. sync data with evnetual consistency nodel.  
+
+# Monitoring
+
+make sure algorithm and rules are effective, depending on the monitor result adjust algorithm  
+
+# Others
+
+a. Hard vs soft rate limiting - requests can exceed the threshold for a short period.  
+b. rate limiting at different levels.  
+c. how how to avoid getting rate limited: use client cache, do not send too many requests in a short time frame, catch exceptions so your client can gracefully recover  
+d. sufficient back off time to retry logic
