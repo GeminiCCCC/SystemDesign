@@ -8,4 +8,4 @@
 
 ## 5. the number of virtual nodes of a server is proportional to the server capacity
 
-## 6. data replication: number N is a configurable parameter, walk clockwise and choose the first N servers on the ring to store data copies 
+## 6. data replication: number N is a configurable parameter, walk clockwise and choose the first N servers on the ring to store data copies. Since the first N servers may not be unique due to virtual nodes, only choose N unique nodes
