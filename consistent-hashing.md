@@ -5,3 +5,7 @@
 ## 3. use virtual nodes (hundreds) for each server to solve it, tradeoff is that more spaces are needed to store data about virtual nodes. And we can tune the number of virtual nodes
 
 ## 4. when a new server is added, move anticlockwise until a server is found, thus all keys have found should be mapped to new server
+
+## 5. the number of virtual nodes of a server is proportional to the server capacity
+
+## 6. data replication: number N is a configurable parameter, walk clockwise and choose the first N servers on the ring to store data copies 
