@@ -20,3 +20,11 @@ e. if the heatbeat has not increased for more thana predefined periods, the memb
 # 4. use sloppy quorum to improve availability when temporary failures happen
 
 a. after nodes are down instead of enforcing the quorum requirement, the system chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring.
+
+# 5. use Merkle tree is handle replica permanently failure (to keep replicas in sync)
+* step 1: divide key space into buckets which will be used in leaf nodes. 
+* step 2: hash each key
+* step 3: create a single hash node per bucket
+* step 4: build the tree upwards till root by calculating hashed of children
+
+To compare two Merkle trees, start by comparing root hashes. If root hashes match, both servers have the same data, otherwise traverse the tree to find the which buckets are not synchronized and synchronize those buckets only. So the amount of data needed to be synchronized is proportional to the differences, and not the amount of data.
