@@ -20,7 +20,7 @@ e. if the heatbeat has not increased for more thana predefined periods, the memb
 # 4. use sloppy quorum (hinted handoff) to improve availability when temporary failures happen
 
 a. after nodes are down instead of enforcing the quorum requirement, the system chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring.  
-b. if A is temporarily down, then the replica sent to D (assuming D contains the row key for the write request), and it will write a hint to D's local database indicating the write request needs to be replayed at A (when A is back online).  
+b. if A is temporarily down, then the replica sent to D (assuming D is one of the W healthy servers that contains the row key for the write request), and it will write a hint to D's local database indicating the write request needs to be replayed at A (when A is back online).  
 c. and once D discovered that A is back online via Gossip, it will send the hinted raw data back to A
 
 # 5. use Merkle tree is handle replica permanently failure (to keep replicas in sync)
