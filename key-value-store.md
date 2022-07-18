@@ -17,9 +17,11 @@ c. each node periodically sends heatbeats to a set of random nodes, which in tur
 d. once nodes receive heartbeats, membership list is updated to the latest info.  
 e. if the heatbeat has not increased for more thana predefined periods, the member is considered as offline.  
 
-# 4. use sloppy quorum to improve availability when temporary failures happen
+# 4. use sloppy quorum (hinted handoff) to improve availability when temporary failures happen
 
-a. after nodes are down instead of enforcing the quorum requirement, the system chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring.
+a. after nodes are down instead of enforcing the quorum requirement, the system chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring.  
+b. if A is temporarily down, then the replica sent to D (assuming D contains the row key for the write request), and it will write a hint to D's local database indicating the write request needs to be replayed at A (when A is back online).  
+c. and once D discovered that A is back online via Gossip, it will send the hinted raw data back to A
 
 # 5. use Merkle tree is handle replica permanently failure (to keep replicas in sync)
 * step 1: divide key space into buckets which will be used in leaf nodes. 
@@ -28,3 +30,16 @@ a. after nodes are down instead of enforcing the quorum requirement, the system 
 * step 4: build the tree upwards till root by calculating hashed of children
 
 To compare two Merkle trees, start by comparing root hashes. If root hashes match, both servers have the same data, otherwise traverse the tree to find the which buckets are not synchronized and synchronize those buckets only. So the amount of data needed to be synchronized is proportional to the differences, and not the amount of data.
+
+# 6. a coordinator is a node that acts as proxy between the client and the kv store
+
+# 7. write path
+
+* request is persisted on a commit log file
+* data is saved in the memory cache
+* when memory cache is full or reaches a predefined threshold, data is flushed to SSTable on disk (A sorted-string table is a sorted list of <k, v> pairs
+
+# 8. read path
+
+* check if data is in the memory cache. If so, return from cache
+* if not in cache, retrieve from the disk, but we will need an efficient way to find out which SSTable contains the key. Bloom filter is commonly used to solve ihis
