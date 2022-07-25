@@ -286,11 +286,3 @@ c. Serializable snapshot isolation (SSI): a fairly new alogrithm that avoids mos
 
 a. Serializability is an isolation property of transactions,I guarentees that transactions behave the same as if they had executed in some serial order (each transaction running to completion before the next transaction starts). It is ok for that serial order to be different from the order in which transactions where actually run.  
 b. Linerizability is a recency guarentee on reads and writes of a register (an individual object). It doesn't group operations together into transactions, so it does not prevent problems such as write skew.  
-
-## 36. How to generate sequence number
-
-a. For a single-leader replication environment, we can simply generate causual sequence number by increasing counter from leader. 
-b. For multiple-leader or leaderless database, or because the database is partitioned, we can generate noncausal sequence number by.  
-* if have two nodes, one node can generate odd numbers, the other one can generate even numbers
-* attach timestamp, if it has sufficiently high resolution, they might be able to use as sequence number
-* preallocate blocks of sequence numbers for nodes
