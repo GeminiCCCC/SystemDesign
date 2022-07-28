@@ -24,3 +24,4 @@
 
 ## Flow
 * longURL comes in -> check if it exists in DB, if yes return shortURL -> generate new ID -> hash to short URL -> save ID, short and long URL in DB
+* for url redirect use cache, request will be routed by load balancer to web server who will query distributed cache first, it miss, query DB if found, update cache
