@@ -25,3 +25,10 @@
 ## Flow
 * longURL comes in -> check if it exists in DB, if yes return shortURL -> generate new ID -> hash to short URL -> save ID, short and long URL in DB
 * for url redirect use cache, request will be routed by load balancer to web server who will query distributed cache first, it miss, query DB if found, update cache
+
+## Additional topics
+* use rate limiter to prevent malicious users
+* horizontally scale up and down web servers
+* DB scaling: replication and sharding 
+* Analitics: Integrate with an analytics solution e.g Flink to help answer how many user clicked a url and when did they click it
+* Availability, consistency and reliability
