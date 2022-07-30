@@ -286,3 +286,8 @@ c. Serializable snapshot isolation (SSI): a fairly new alogrithm that avoids mos
 
 a. Serializability is an isolation property of transactions,I guarentees that transactions behave the same as if they had executed in some serial order (each transaction running to completion before the next transaction starts). It is ok for that serial order to be different from the order in which transactions where actually run.  
 b. Linerizability is a recency guarentee on reads and writes of a register (an individual object). It doesn't group operations together into transactions, so it does not prevent problems such as write skew.  
+
+## 36. 2PC
+* needs a coordinator to tell all nodes if commit of abort after receiving signals from all nodes
+* if coordinator failed, all nodes have to wait for it to recover. That's why coordinator has to write the decision to transaction logs on disk before sending it to nodes
+* used in distributed transactional, but has performance penalty
