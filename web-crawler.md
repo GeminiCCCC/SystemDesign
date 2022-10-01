@@ -21,3 +21,13 @@
 * Assume average page size is 500k
 * 1 billions pages * 500K = 1 GB * 1,000 * 500 = 500 TB
 * 500 TB * 12 months * 5 years = 30 PB
+
+## High level
+![image](https://user-images.githubusercontent.com/68412871/193431435-c5527345-15b0-4fee-859b-6f679f091954.png)
+
+* Seed URLs: based on locality as different countries may have different popular websites. Or based on topics, for example shopping, sports, healthcare etc
+* URL Frontier: stores URLs to be downloaded
+* DNS Resolver: resolve url to ip address
+* Content Parser: parse and validate content, could be async to gain more performance, so we make it a separate component
+* Content Seen: compare the hash of the two web pages is much better to compare character by character
+* Content Storage: Most of the content is stored on disk, popular content is kept in memory to reduce latency
