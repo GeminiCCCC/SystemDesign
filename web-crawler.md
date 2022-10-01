@@ -19,4 +19,5 @@
 * QPS: 1,000,000,000 / 30 days / 86,400 seconds = 1,000,000,000 / 2,592,000 = ~400 pages per second
 * Peak QPS = 2 * 400 = 800
 * Assume average page size is 500k
-* 1 billions = 1
+* 1 billions pages * 500K = 1 GB * 1,000 * 500 = 500 TB
+* 500 TB * 12 months * 5 years = 30 PB
