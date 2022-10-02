@@ -34,8 +34,17 @@
   3. a worker thread download page from queue one by one with delay in between
   4. a prioritizer to calculate page priority and publish into different priority queue and a queue selector will use probablity to select from priority queues
   5. to keep data refresh we need to do recrawl in Frontier with an internal cron worker. Recrawl all the URLs is time-consuming and resource intensive. We can recrawl base on webpage update history, and recrawl high priority pages more frequently
-
+  6. partition urls and distribute them to HTML Downloader
+* HTML Downloader:
+  1. Read each website Robots.txt for allowed pages
+  2. Cache the result to memory for performance improvement
+  3. Multiple servers with multiple threads on each server
+  4. Send urls to the HTML Downloader which are geographically closer to the website servers
+  5. Apply timeout for downloading pages, incase some web servers have slow response time to increase performance
 * DNS Resolver: resolve url to ip address
+  1. DNS response time ranges from 10ms to 200ms
+  2. call to DNS Resolver is synchronus call due to the nature of many DNS interfaces
+  3. cache DNS result and use cron job to preodically update it
 * Content Parser: parse and validate content, could be async to gain more performance, so we make it a separate component
 * Content Seen: compare the hash of the two web pages is much better to compare character by character
 * Content Storage: Most of the content is stored on disk, popular content is kept in memory to reduce latency
@@ -47,5 +56,4 @@
 * BFS is commonly used by web crawlers, but it as two problems (refer URL Frontier section for solution):
   1. Most links from the same web page are linked back to the same host (domain). When the crawler tries to download wbe pages in parallel, target site server will be flooded which is considered as "impolite"
   2. Standard BFS has no priority for a URL as not every page has the same level of quality and importance
- 
 
