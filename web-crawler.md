@@ -29,7 +29,7 @@
 * URL Frontier:   
 ![image](https://user-images.githubusercontent.com/68412871/193436707-9381a360-afed-41ea-a3bf-14a6e23ef78c.png)
 
-  1. stores URLs to be downloaded. Since it can be hundreds of millions or urls, we can't store all in memory, not enough space and not durable. And we can't store all in disk because it's too slow. We can use hybrid approach, which is Kafka queues to maintain all the URLs that need to be crawled.
+  1. stores URLs to be downloaded. Since it can be hundreds of millions or urls, we can't store all in memory, not enough space and not durable. And we can't store all in disk because it's too slow. We can use hybrid approach, which is Kafka queues which support both in memory and disk storage to maintain all the URLs that need to be crawled.
   2. maintain domain to queue mapping, all domain's urls are stored in the same queue
   3. a worker thread download page from queue one by one with delay in between
   4. a prioritizer to calculate page priority and publish into different priority queue and a queue selector will use probablity to select from priority queues
