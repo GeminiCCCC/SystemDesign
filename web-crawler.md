@@ -57,3 +57,11 @@
   1. Most links from the same web page are linked back to the same host (domain). When the crawler tries to download wbe pages in parallel, target site server will be flooded which is considered as "impolite"
   2. Standard BFS has no priority for a URL as not every page has the same level of quality and importance
 
+## Robustness
+* Consistent hashing to evenly distribute urls to downloaders. Safely and efficiently add or remove a downloader server
+* Store crawler state and data, so in the casue of failure a distributed cralwer can load the data and restart easily
+* Handle errors gracefully without crashing the system
+* Data validation
+
+## Extensibility
+![image](https://user-images.githubusercontent.com/68412871/193469782-31451028-da5d-47ab-92a3-830e705aa37c.png)
