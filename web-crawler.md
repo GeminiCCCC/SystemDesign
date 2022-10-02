@@ -65,3 +65,10 @@
 
 ## Extensibility
 ![image](https://user-images.githubusercontent.com/68412871/193469782-31451028-da5d-47ab-92a3-830e705aa37c.png)
+
+## Others
+* Set max depth for a domain to avoid spider traps, and manually maintain an exclusion list
+* Avoid useless content. e.g. ads, code snippets, spam URLs
+* Server-sider rendering: many websites use script like javascript to generate links on the fly. If we parse pages directly, we will not be able to retrieve dynamically generated links. So we perform server-side rendering first before parsing a page
+* Database sharding and replication
+* Analytics 
