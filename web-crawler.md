@@ -31,3 +31,5 @@
 * Content Parser: parse and validate content, could be async to gain more performance, so we make it a separate component
 * Content Seen: compare the hash of the two web pages is much better to compare character by character
 * Content Storage: Most of the content is stored on disk, popular content is kept in memory to reduce latency
+* URL Filter: excludes certain content types, file extensions, error links and URLs in blacklisted sites
+* URL Seen: Bloom filter or hash table
