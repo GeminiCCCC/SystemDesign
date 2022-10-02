@@ -26,7 +26,15 @@
 ![image](https://user-images.githubusercontent.com/68412871/193431435-c5527345-15b0-4fee-859b-6f679f091954.png)
 
 * Seed URLs: based on locality as different countries may have different popular websites. Or based on topics, for example shopping, sports, healthcare etc
-* URL Frontier: stores URLs to be downloaded
+* URL Frontier:   
+![image](https://user-images.githubusercontent.com/68412871/193436707-9381a360-afed-41ea-a3bf-14a6e23ef78c.png)
+
+  1. stores URLs to be downloaded. Since it can be hundreds of millions or urls, we can't store all in memory, not enough space and not durable. And we can't store all in disk because it's too slow. We can use hybrid approach, which is Kafka queues to maintain all the URLs that need to be crawled.
+  2. maintain domain to queue mapping, all domain's urls are stored in the same queue
+  3. a worker thread download page from queue one by one with delay in between
+  4. a prioritizer to calculate page priority and publish into different priority queue and a queue selector will use probablity to select from priority queues
+  5. to keep data refresh we need to do recrawl in Frontier with an internal cron worker. Recrawl all the URLs is time-consuming and resource intensive. We can recrawl base on webpage update history, and recrawl high priority pages more frequently
+
 * DNS Resolver: resolve url to ip address
 * Content Parser: parse and validate content, could be async to gain more performance, so we make it a separate component
 * Content Seen: compare the hash of the two web pages is much better to compare character by character
@@ -36,6 +44,8 @@
 
 ## DFS vs BFS
 * DFS is not a good choice because the depth of DFS can be very deep
-* BFS is commonly used by web crawlers, but it as two problems:
+* BFS is commonly used by web crawlers, but it as two problems (refer URL Frontier section for solution):
   1. Most links from the same web page are linked back to the same host (domain). When the crawler tries to download wbe pages in parallel, target site server will be flooded which is considered as "impolite"
   2. Standard BFS has no priority for a URL as not every page has the same level of quality and importance
+ 
+
