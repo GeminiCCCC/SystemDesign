@@ -33,3 +33,9 @@
 * Content Storage: Most of the content is stored on disk, popular content is kept in memory to reduce latency
 * URL Filter: excludes certain content types, file extensions, error links and URLs in blacklisted sites
 * URL Seen: Bloom filter or hash table
+
+## DFS vs BFS
+* DFS is not a good choice because the depth of DFS can be very deep
+* BFS is commonly used by web crawlers, but it as two problems:
+  1. Most links from the same web page are linked back to the same host (domain). When the crawler tries to download wbe pages in parallel, target site server will be flooded which is considered as "impolite"
+  2. Standard BFS has no priority for a URL as not every page has the same level of quality and importance
