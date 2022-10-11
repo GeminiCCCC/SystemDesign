@@ -10,3 +10,6 @@
 * each thread will be allocated to 1M size of stack
 * each goroutine will also be allocated to 2k size of stack
 * whenever return &u, the struct u will be allocated in heap instead of stack, because stack memory will be self-cleaned once the function is returned. And allocation in heap comes with a cost which is garbage collection
+
+## Array, slice
+* array is very efficient because it creates predictable access pattern which will preload data into the processor before we need it. and L1, L2 caches inside precessor is much faster than the main memory
