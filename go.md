@@ -22,3 +22,4 @@
 * built-in types use value semantics
 * reference types use value semantics except for unmarshal or decode
 * struct types we need to make a choice by ourself. e.g. time should be value semantics, and user should be pointer semantcs. If you are not sure, start with pointer semantics
+* decoupling will have allocation cost, e.g. f1 := d.displayName, where displayName is a method, we are making indirect reference from f1 -> pointer of d -> real d, and d will be allocated to heap
