@@ -16,6 +16,9 @@
 * 2 index slicing is dangerous when you need to do append on the sliced array, since they will be sharing the same back array in heap, because append will not allocate new array in heap when len < cap. What you can do is to use 3rd index to set max the same is the end, a[1:4] -> a[1:4:4], this is because when len = cap, it will allocate a new array in heap, which means the change on the sliced array will not affect the original one
 * Range on slice has both value and pointer semantics. for i := range nums is pointer sementics which means it directly iterates on the original slice. for i, v := range nums is value sementics which means it makes a copy of original slices and iterate on the copied one, and keep in mind slices are 3 bytes structure, first byte is a pointer pointing to the backing array in the heap, second byte is the length, third byte is the capacity.
 
-## value vs pointer receiver
+## value vs pointer
 * generally should always use value receiver
 * exceptions are unmarshal or decode methods should use pointer receiver
+* built-in types use value semantics
+* reference types use value semantics except for unmarshal or decode
+* struct types we need to make a choice by ourself. e.g. time should be value semantics, and user should be pointer semantcs. If you are not sure, start with pointer semantics
