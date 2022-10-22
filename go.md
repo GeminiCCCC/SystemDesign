@@ -50,3 +50,25 @@ sem <- true // when there is no room is the sem channel, this line will be block
 code...
 <- sem
 ```
+* Drop pattern: use select statement to check if the request can be executed or dropped, select statement is blocked until any case can run
+```
+sem := make(chan string, 5)
+
+for i := 0; i < 5: i++ {
+  go func() {
+    for p := range ch {
+      fmt.Println("working")
+    }
+  } ()
+}
+
+for i :=0 ; i < 20; i++ {
+  select {
+  case ch <- "paper":
+    fmt.Println("exec")
+  default:
+    fmt.Println("dropped")
+  }
+}
+
+```
