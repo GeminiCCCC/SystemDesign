@@ -72,3 +72,22 @@ for i :=0 ; i < 20; i++ {
 }
 
 ```
+* Cancellation Pattern (context package): use size 1 buffered channel. But keep in mind that we have to use buffered channel. If you use unbuffered channel. What will happen is that when tc sends signal, the main goroutine continues to run and finished, and then the child goroutine finished and tries to send the signal, there is no receiver anymore (since unbuffered channel needs to have both sender and receiver at the same time), and child goroutine will be blocked forever, and this is **a classic goroutine leak**. With buffered channel, no need to have a receiver ready.
+```
+ch := make(channel string, 1)
+
+go func () {
+  time.Sleep(time.Duration(rand.Intn(500) * time.Millisecond)
+  ch <- "paper"
+} ()
+
+tc := time.After(100 * time.Millisecond // return a channel that will send signal after 100 milli seconds)
+
+select {
+case p := <-ch:
+  fmt.Println("recv")
+case t := <-tc:
+  fmt.Println("timeout")
+{
+
+```
