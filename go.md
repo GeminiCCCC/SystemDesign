@@ -27,3 +27,7 @@
 ## atomic instructions vs mutexes
 * atomic instructions are faster because they are on the hardware level to take care of synchronization, but it has limitation of only 4 or 8 bytes of memory, so they are great for a single variable, like counter or bool
 * when you have a few lines of code need to be synchronized you need to use mutexes
+
+## Race condition
+* map could also have race condition even if 2 go routines are writing different values at the same time
+* interface could also have race condition, because interface struct is a 2 bytes structure, first byte is the pointer of type of the interface, second byte is the pointer of concrete data. And one gorutine could call the interface function when only half of the interface is updated
