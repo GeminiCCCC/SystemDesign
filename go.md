@@ -40,4 +40,4 @@
 * Waiting for task: child goroutine is blocked, waiting for task to be passed
 * Waiting for result: main goroutine is blocked waiting for the result to be signaled from child goroutine
 * Waiting for Finished: use ```ch := make(chan struct{})```, child goroutine call close(ch), and main goroutines will receive siganal wihout data, and unblocked
-* Pooling: multiple child goroutines are waiting for tasks to be signaled by doing ``` for p:= range ch ```, when main gorouting send signal to channel, a random child goroutine will receive the signal and do the work
+* Pooling pattern: multiple child goroutines are waiting for tasks to be signaled by doing ``` for p:= range ch ```, when main gorouting send signal to channel, a random child goroutine will receive the signal and do the work
