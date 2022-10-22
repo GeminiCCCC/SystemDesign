@@ -41,7 +41,7 @@
 * Waiting for result: main goroutine is blocked waiting for the result to be signaled from child goroutine
 * Waiting for Finished: use ```ch := make(chan struct{})```, child goroutine call close(ch), and main goroutines will receive siganal wihout data, and unblocked
 * Pooling pattern: multiple child goroutines are waiting for tasks to be signaled by doing ``` for p:= range ch ```, when main gorouting send signal to channel, a random child goroutine will receive the signal and do the work
-* Use buffered channel to control max concurrent running goroutines
+* Fanout semaphore pattern: Use buffered channel to control max concurrent running goroutines. This is another way of reducing the latency in terms of goroutines creation, but at the same time limit the impact that these goroutines are having on another resource
 ```
 sem := make(chan bool, 5)
 
