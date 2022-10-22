@@ -91,3 +91,13 @@ case t := <-tc:
 {
 
 ```
+## Context
+* after adding a key value pair to the context, when retrieving it, need to use the same key type.
+```
+const traceIDKey TraceIDKey = 0
+
+ctx := context.WithValue(context.Background(), traceIDKey, "afee97f3-3e97-425e-96ee-6c48e1f39c2d")
+
+ctx.Value(traceIDKey).(TraceID) // work
+ctx.Value(0).(TraceID) // does not work
+```
