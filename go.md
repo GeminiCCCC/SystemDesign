@@ -102,3 +102,26 @@ ctx.Value(traceIDKey).(TraceID) // work
 ctx.Value(0).(TraceID) // does not work
 ```
 * ctx.Done() returns a channel that will close (send signal without data) when the timeout has passed
+```
+duration := 150 * time.Millisecond
+
+ctx, cancel := context.WithTimeout(context.Background(), duration)
+defer cancel() // calling cancel will immediate terminate the function and relase the resources, and calling cancel twice is ok. That's why we always call cancel regardless
+
+ch := make(chan data, 1)
+
+go func() {
+  time.Sleep(500 * time.Millisecond)
+  
+  ch <- data("123")
+} ()
+
+select {
+case d := <- ch:
+  fmt.Println("work done")
+  
+case <-ctx.Done():
+  fmt.Println("canceled")
+}
+
+```
