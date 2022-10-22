@@ -31,3 +31,9 @@
 ## Race condition
 * map could also have race condition even if 2 go routines are writing different values at the same time
 * interface could also have race condition, because interface struct is a 2 bytes structure, first byte is the pointer of type of the interface, second byte is the pointer of concrete data. And one gorutine could call the interface function when only half of the interface is updated
+
+## Channel
+* Nil -> Send Block, Receive Block
+* Open -> Send Allow, Receive Allow
+* Closed -> Send Block, Receive Allow
+* Signaling with data has to be one goroutine to another, while sginaling without data can be from one gorouting to multiple go routines
