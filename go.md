@@ -23,3 +23,7 @@
 * reference types use value semantics except for unmarshal or decode
 * struct types we need to make a choice by ourself. e.g. time should be value semantics, and user should be pointer semantcs. If you are not sure, start with pointer semantics
 * decoupling will have allocation cost, e.g. f1 := d.displayName, where displayName is a method, we are making indirect reference from f1 -> pointer of d -> real d, and d will be allocated to heap
+
+## atomic instructions vs mutexes
+* atomic instructions are faster because they are on the hardware level to take care of synchronization, but it has limitation of only 4 or 8 bytes of memory, so they are great for a single variable, like counter or bool
+* when you have a few lines of code need to be synchronized you need to use mutexes
