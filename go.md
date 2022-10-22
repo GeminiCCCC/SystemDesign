@@ -101,3 +101,4 @@ ctx := context.WithValue(context.Background(), traceIDKey, "afee97f3-3e97-425e-9
 ctx.Value(traceIDKey).(TraceID) // work
 ctx.Value(0).(TraceID) // does not work
 ```
+* ctx.Done() returns a channel that will close (send signal without data) when the timeout has passed
