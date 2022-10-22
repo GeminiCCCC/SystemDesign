@@ -36,4 +36,4 @@
 * Nil -> Send Block, Receive Block
 * Open -> Send Allow, Receive Allow
 * Closed -> Send Block, Receive Allow
-* Signaling with data has to be one goroutine to another, while sginaling without data can be from one gorouting to multiple go routines
+* Signaling with data has to be one goroutine to another, while sginaling without data can be from one gorouting to multiple go routines which is really the channel state change
