@@ -125,3 +125,6 @@ case <-ctx.Done():
 }
 
 ```
+## Concurrency vs Parallelism
+* currency is a property of the code; parallelism is property of the running program
+* we write correnty code that we hope will be run in parallel (if one core no parallelism, when multiple cores we have parallelism) 
