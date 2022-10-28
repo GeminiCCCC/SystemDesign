@@ -128,3 +128,6 @@ case <-ctx.Done():
 ## Concurrency vs Parallelism
 * currency is a property of the code; parallelism is property of the running program
 * we write correnty code that we hope will be run in parallel (if one core no parallelism, when multiple cores we have parallelism) 
+
+## Channel error handling
+* create a struct for both error and expected return, pass the struct to the channel and let main goroutine to check each result
