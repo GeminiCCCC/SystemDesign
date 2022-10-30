@@ -171,3 +171,7 @@ fanIn := func(done <-chan interface{}, channels ...<-chan interface{}) <-chan in
   return mergedStream
 }
 ```
+## Context package
+* WithCancel, WithDeadline, WithTimeout all return a cancel function where you can call to close the returned context's Done channel explicitly.
+* WithCancel, WithDeadline, WithTimeout basically create a child context with current context as its parent, and when close (by calling cancel or timeout) parent context's Done channel, all children context's Done channel will also be closed. And close child context's done channel will not affect parent context.
+* When ever you want to have a different control (manual cancel or a new timeout) for the current branch, use above 3 functions to create a child context
