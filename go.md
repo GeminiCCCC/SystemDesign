@@ -46,7 +46,7 @@
 sem := make(chan bool, 5)
 
 // in child goroutine
-sem <- true // when there is no room is the sem channel, this line will be blocked
+sem <- true // when there is no room in the sem channel, this line will be blocked
 code...
 <- sem
 ```
@@ -131,3 +131,43 @@ case <-ctx.Done():
 
 ## Channel error handling
 * create a struct for both error and expected return, pass the struct to the channel and let main goroutine to check each result
+
+## fan-out fan-in
+* fan-out: start multiple channels at the same time
+```
+numFinders := runtime.NumCPU()
+finfers := make([]<-chan int, numFinders)
+for i := 0; i < numFinders; i++ {
+  finders[i] = primeFinder(done, randIntStream)
+}
+```
+* fan-in: merge multiple channels result into one channel with waitGroup
+```
+fanIn := func(done <-chan interface{}, channels ...<-chan interface{}) <-chan interface{} {
+  var wg sync.WaitGroup
+  wg.Add(len(channels))
+  mergedStream := make(chan interface{})
+  
+  merge := func(c <-chan interface{}) {
+    defer wg.Done()
+    for i := range c {
+      select {
+      case <-done:
+        return
+      case mergedStream <- i 
+    }
+  }
+
+  for _, c := range channels {
+    go merge(c)
+  }
+
+  // make another goroutine to not block fanIn function to return mergedStream
+  go func() {
+    wg.wait()
+    close(mergedStream)
+  }()
+
+  return mergedStream
+}
+```
