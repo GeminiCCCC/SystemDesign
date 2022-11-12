@@ -9,3 +9,12 @@
 * we use hybrid mode: if user is not celebrity (flag stored in user table) use push mode, and when a user pulles his news feed, only use pull mode for celebrity friends.
 * when pushing news to friends, first retrive friend lists, then filter out the friends who muted you, or you selectively do not want to share your news. Then send friends ID and new post ID (already persisted in database) to kafka queue
 * kakfa queue consumers will write postID, friendID to the table (redis? mysql?)
+
+## use CDN to retrieve static media data (image, video etc)
+
+## cache is important for news feed system, 5 layers cache
+* News feed: stores IDs for a feed
+* Content: stores all post, popular post is stored in hot cache. others in normal cache
+* Social graph: stores user relation data
+* Action: likes a post or took other actions on a post
+* Counters: like, reply, followers, following, etc
