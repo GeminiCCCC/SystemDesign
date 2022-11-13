@@ -44,7 +44,22 @@
   * XMPP is decentralized, while WebSockets follows a centralized architechture. XMPP is based on the client-server model and prevents direct interaction between clients. WebSockets take the help of APIs and ensure the client and server are communicating continuously.
   * For speed, WebSocket outperforms XMPP because of its centralized nature and continual communications. XMPP force authentication and authorization of both the server and the client slows down its performance a bit.
   * Use WebSocket is speed is more important, use XMPP if security is more important
- 
+## stateless services
+* discovery service
+* sign up, user profile, authentication service
+## stateful service
+* chat service:
+## third party integration
+* push notification: inform users when new msgs have arrived
+## Scalibility
+* with 1M concurrent users, assume 1 connection needs 10K memory, only needs 10G memory, so one server can handle all connections
+## high level
+* User makes http call to LB to API servers which include signup, login, change profile etc
+* User makes websocket call to chat service/presence service (manage online/offine status)
+* Chat service facilitates msg sending/receiving
+## storage
+* 
+
  
  
  
