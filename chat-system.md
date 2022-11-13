@@ -58,7 +58,12 @@
 * User makes websocket call to chat service/presence service (manage online/offine status)
 * Chat service facilitates msg sending/receiving
 ## storage
-* 
+* for user profile, user setting, user friends, we use relational DB
+* for chat history, previous study reveals that Facebook messenger and Whatsapp processes 60 bils msgs a day. Only recent msgs are accessed frequently. But user might still require random access of data, such as search, view your mentions, jump to a specific msg etc. read/write rations is about 1:1
+* select key-value store for chat history. HBase and Cassandra are column oriented, but stores in key-value pairs. Because it can scale horizontally easily; provides very low latency to access data; Relational DBs do not handle long tail of data well, when indexes grow large, random access is expensive
+## Data model
+* 1 on 1 chat: msg_id bigint, msg_from bigint, msg_to bigint, content text, created_at timestamp
+* group chat: group_id bigint, msg_id bigint, user_id bigint, context text, created_at timestamp
 
  
  
