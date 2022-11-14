@@ -49,6 +49,8 @@
   * recommend the best chat server for a client based on the criteria like geographical location, server capacity etc. 
   * use zoo keeper, it registers all the available chat servers and picks the best chat server
   * User tries to log in to the app -> The LB sends the login request to API servers -> after the backend authenticates the user, service discovery finds the best chat server -> User connects to selected chat server through WebSocket
+![image](https://user-images.githubusercontent.com/68412871/201559921-a624737e-695b-42cf-aab9-780ce505a85f.png)
+
 * sign up, user profile, authentication service
 ## stateful service
 * chat service:
@@ -72,4 +74,26 @@
 * first option is auto increment field, but nosql DB usually does not support it
 * second option is use global 64-bit sequence number generator like Snowflake
 * third option is to use local sequence number generator, this is works because the msg_id only needs to be unique within 1 to 1, or group chat
- 
+## msg flow
+![image](https://user-images.githubusercontent.com/68412871/201560089-b25664c3-c567-4b5b-9632-3f9037671723.png)
+  1. User A sends a chat message to Chat server 1 (server was assigned by discovery service while logging in)
+  2. Chat server 1 obtains a message ID from ID generator
+  3. Chat server 1 sends the msg to the msg sync queue
+  4. The msg is stored in a key-value store
+  5. a. if user B is online, the msg is forwarded to Chat server 2 where User B is connected. b. if B is offline, a push notification is sent from PN service
+  6. Chat server 2 forwards to msg to User B.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
