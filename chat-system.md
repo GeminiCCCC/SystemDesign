@@ -11,6 +11,7 @@
 * is there a message size limit? yes, 100,000 characters long
 * is end-to-end encryption required? not now
 * how long will the chat history store? forever
+* do we need to support message sent and read feature? maybe
 
 ## protocol
 * UDP: User datagram protocal, faster, no order and deliveribility guarentee, good for voice service
