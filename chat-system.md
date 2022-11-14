@@ -51,7 +51,11 @@
   * use zoo keeper, it registers all the available chat servers and picks the best chat server
   * User tries to log in to the app -> The LB sends the login request to API servers -> after the backend authenticates the user, service discovery finds the best chat server -> User connects to selected chat server through WebSocket
 ![image](https://user-images.githubusercontent.com/68412871/201559921-a624737e-695b-42cf-aab9-780ce505a85f.png)
-
+* presence service (manage online/offine status)
+  * create table to store user info including online status
+  * when user logged in and the WebSocket connection is established, mark status to true. 
+  * when user logged out, mark status to false
+  * when user logged in, he gets his friends list first. Then query cache for friends online status, if not found, query DB
 * sign up, user profile, authentication service
 ## stateful service
 * chat service:
@@ -61,7 +65,7 @@
 * with 1M concurrent users, assume 1 connection needs 10K memory, only needs 10G memory, so one server can handle all connections
 ## high level
 * User makes http call to LB to API servers which include signup, login, change profile etc
-* User makes websocket call to chat service/presence service (manage online/offine status)
+* User makes websocket call to chat service
 * Chat service facilitates msg sending/receiving
 ## storage
 * for user profile, user setting, user friends, we use relational DB
@@ -80,13 +84,28 @@
   1. User A sends a chat message to Chat server 1 (server was assigned by discovery service while logging in)
   2. Chat server 1 obtains a message ID from ID generator
   3. Chat server 1 sends the msg to the msg sync queue
-  4. The msg is stored in a key-value store
-  5. a. if user B is online, the msg is forwarded to Chat server 2 where User B is connected. b. if B is offline, a push notification is sent from PN service
-  6. Chat server 2 forwards to msg to User B.
+  4. The msg is stored in a key-value store, after this we can send back ack to client to mart msg as sent on the client side
+  4.1 Here there should be another user mapping service, every time when a user log in, it will maintain the userId and the websocket connection ID. And it will find user B's websocket connection 
+  6. a. if user B is online, the msg is forwarded to Chat server 2 where User B is connected. b. if B is offline, a push notification is sent from PN service
+  7. Chat server 2 forwards to msg to User B.
+## multiple device sync
+* each client keeps cur_max_msgID
+* when new client connects, if will query key-value store and query some recent msgs by filtering the msg_to and compare the msg_id
+## group chat
+* we can create groupChat table to store user and group mapping
+* when a msg is sent, we can copy the msg to all group member's msg queue (by querying the groupChat table), pros is client only needs to check its own queue. cons is if group is too big, this fanout behavior will be expensive. So for a large group we can publish the msg to a shared queue, and all users will subscribe from the queue
+## user disconnection
+* disconnection can happen due to either user manually close the chat screen, or the internet is not stable or lost
+* naive approach is that every time the connection is lost/established, we update the status. But this will maker the presence indicator change too often, and resulting in poor user experience.
+* we can use heartbeat, client send hearbeat to server every 5 seconds, if no heartbeat after 30s, mark user to be offline. If user was offline and the heartbeat comes, mark the user to be online.
+## online status fanout
+* pull mode: interval 1 min, has delay, most requests don't have any meaning
+* push mode: real-time, but fanout number could be big
+* for friends status update, we use push mode to notify all online friends I am online (since online friends are limited)
+* for group status update, we use pull mode (e.g. user joins 20 groups, each group has 200 people, 20% members are online, thats 20*200*0.2=800 events), we can pull the group members status when first entering the group. After that user can manually update members status
 
-
-
-
+## cache
+* when user set online/offline status, we can add to cache cluster before database, so that when read we check cache first to reduce the load on DB read
 
 
 
