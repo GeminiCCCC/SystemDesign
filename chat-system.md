@@ -106,8 +106,14 @@
 
 ## cache
 * when user set online/offline status, we can add to cache cluster before database, so that when read we check cache first to reduce the load on DB read
+* caching message on the client side for a while and then flush to server is effective to reduce date data transfer between client and server, but the downsize is that we might lose the msg if client crashes.
 
-
+## other topics
+* support media: such as photo and video. Compression, cloud storage, thumbnails
+* end-to-end encryption: 
+* error handling
+* if a chat server goes offline, service discovery (zookeeper) will provide a new chat server for clients to establish new connections (by reading the DB for all users was connected to this chat server
+* msg resent. Retry and queueing are common techniques
 
 
 
