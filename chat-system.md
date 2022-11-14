@@ -111,6 +111,11 @@
 ## other topics
 * support media: such as photo and video. Compression, cloud storage, thumbnails
 * end-to-end encryption: 
+  * convert data into scrambled text, the unreadable text can only be decoded with a secret key
+  * the secret key is created on your device and the device you message. It exists only on these two devices. Not shared with anyone else
+  * the secret key is generated again for each msg
+  * the secret key is deleted from the sender's device when the encrypted msg is created, and deleted from the receiver's device when the msg is decrypted
+  * each end-to-end encrypted conversation has a unique verification code. The code must be the same for you and your contact to verify that your msgs are end-to-end encrypted
 * error handling
 * if a chat server goes offline, service discovery (zookeeper) will provide a new chat server for clients to establish new connections (by reading the DB for all users was connected to this chat server
 * msg resent. Retry and queueing are common techniques
