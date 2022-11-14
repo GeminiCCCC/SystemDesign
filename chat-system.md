@@ -110,7 +110,7 @@
 
 ## other topics
 * support media: such as photo and video. Compression, cloud storage, thumbnails
-* end-to-end encryption: 
+* end-to-end encryption (for security and privacy): 
   * convert data into scrambled text, the unreadable text can only be decoded with a secret key
   * the secret key is created on your device and the device you message. It exists only on these two devices. Not shared with anyone else
   * the secret key is generated again for each msg
