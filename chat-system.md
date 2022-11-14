@@ -45,7 +45,10 @@
   * For speed, WebSocket outperforms XMPP because of its centralized nature and continual communications. XMPP force authentication and authorization of both the server and the client slows down its performance a bit.
   * Use WebSocket is speed is more important, use XMPP if security is more important
 ## stateless services
-* discovery service
+* discovery service: 
+  * recommend the best chat server for a client based on the criteria like geographical location, server capacity etc. 
+  * use zoo keeper, it registers all the available chat servers and picks the best chat server
+  * User tries to log in to the app -> The LB sends the login request to API servers -> after the backend authenticates the user, service discovery finds the best chat server -> User connects to selected chat server through WebSocket
 * sign up, user profile, authentication service
 ## stateful service
 * chat service:
@@ -64,18 +67,9 @@
 ## Data model
 * 1 on 1 chat: msg_id bigint, msg_from bigint, msg_to bigint, content text, created_at timestamp
 * group chat: group_id bigint, msg_id bigint, user_id bigint, context text, created_at timestamp
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+## msg_id
+* msg_id should be unique and sortable, because multiple msg could happend within same timestamp
+* first option is auto increment field, but nosql DB usually does not support it
+* second option is use global 64-bit sequence number generator like Snowflake
+* third option is to use local sequence number generator, this is works because the msg_id only needs to be unique within 1 to 1, or group chat
  
