@@ -116,6 +116,7 @@
   * the secret key is generated again for each msg
   * the secret key is deleted from the sender's device when the encrypted msg is created, and deleted from the receiver's device when the msg is decrypted
   * each end-to-end encrypted conversation has a unique verification code. The code must be the same for you and your contact to verify that your msgs are end-to-end encrypted
+  * wechat does not use end-to-end encryption, it uses client to server encryption
 * error handling
 * if a chat server goes offline, service discovery (zookeeper) will provide a new chat server for clients to establish new connections (by reading the DB for all users was connected to this chat server
 * msg resent. Retry and queueing are common techniques
