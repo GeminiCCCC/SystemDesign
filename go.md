@@ -91,6 +91,26 @@ case t := <-tc:
 {
 
 ```
+* turn off a case in select: if the channel of the case is closed, that case will always be hit because reading from a closed channel always returns 0, to stop it we can set the closed channel to nil since reading from nil channel never returns a value
+```
+for {
+  select {
+  case v, ok <- ch1:
+    if !ok {
+      ch1 = nil
+      continue
+    }
+  }
+  case v, ok <- ch2:
+    if !ok {
+      ch2 = nil
+      continue
+    }
+  case <- done:
+    return
+}
+```
+
 ## Context
 * after adding a key value pair to the context, when retrieving it, need to use the same key type.
 ```
