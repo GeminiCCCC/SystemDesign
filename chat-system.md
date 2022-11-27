@@ -107,6 +107,7 @@
 ## cache
 * when user set online/offline status, we can add to cache cluster before database, so that when read we check cache first to reduce the load on DB read
 * caching message on the client side for a while and then flush to server is effective to reduce date data transfer between client and server, but the downsize is that we might lose the msg if client crashes.
+* cache members in a group, needs to consider how to invalidate the cache when admin removes/add users to the group
 
 ## other topics
 * support media: such as photo and video. Compression, cloud storage, thumbnails
