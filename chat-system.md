@@ -103,12 +103,12 @@
 ## online status fanout
 * pull mode: interval 1 min, has delay, most requests don't have any meaning
 * push mode: real-time, but fanout number could be big
-* for friends status update, we use push mode to notify all online friends I am online (since online friends are limited)
+* for friends status update, we use push mode to notify all online friends (since online friends are limited)
 * for group status update, we use pull mode (e.g. user joins 20 groups, each group has 200 people, 20% members are online, thats 20*200*0.2=800 events), we can pull the group members status when first entering the group. After that user can manually update members status
 
 ## cache
 * when user set online/offline status, we can add to cache cluster before database, so that when read we check cache first to reduce the load on DB read
-* caching message on the client side for a while and then flush to server is effective to reduce date data transfer between client and server, but the downsize is that we might lose the msg if client crashes.
+* caching message on the client side for a while and then flush to server is effective to reduce data transfer between client and server, but the downsize is that we might lose the msg if client crashes.
 * cache members in a group, needs to consider how to invalidate the cache when admin removes/add users to the group
 
 ## other topics
