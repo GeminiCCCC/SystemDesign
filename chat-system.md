@@ -36,7 +36,7 @@
   
   **Cons**:
   * stafeful, ticky to handle, especially at scale, becuase it requires the server layer to keep track of each individual WebSocket connection and maintain state info
-  * don't automatically recover when connections are terminated, you need to implement yourself
+  * don't automatically recover when connections are terminated, you need to implement by yourself
   * certain enviroments (such as corporate networks with proxy servers) will block WebSocket connection
 * WebRTC vs WebSockets:
   * WebSocket provides a client-server computer communication protocal, where as WebRTC offers a peer-to-peer protocal and communication capabilities for browsers and mobile apps
@@ -80,7 +80,7 @@
 * msg_id should be unique and sortable, because multiple msg could happend within same timestamp
 * first option is auto increment field, but nosql DB usually does not support it
 * second option is use global 64-bit sequence number generator like Snowflake
-* third option is to use local sequence number generator, this is works because the msg_id only needs to be unique within 1 to 1, or group chat
+* third option is to use local sequence number generator, this works because the msg_id only needs to be unique within 1 to 1, or group chat
 ## msg flow
 ![image](https://user-images.githubusercontent.com/68412871/201560089-b25664c3-c567-4b5b-9632-3f9037671723.png)
   1. User A sends a chat message to Chat server 1 (server was assigned by discovery service while logging in)
