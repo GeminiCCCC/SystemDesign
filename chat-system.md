@@ -23,7 +23,8 @@
   * provide strong security guarentees; data is encrypted and authenticated with SRTP (Secure Real-Time Transport Protocal). 
   * open-source and free to use, backed by a strong and active community
   * platform and device-independent. Will work on any browser that supports it, irrespective of OS or the types of devices.  
- **Cons**:
+  
+  **Cons**:
   * even though it is a peer-to-peer technology, you still have to manage and pay for web servers
   * can be extremely CPU-intensive, especially when dealing with video content and large groups of users. This makes it costly and hard to reiably use and scale WebRTC applications
   * hard to get started with. Ramp up path is steep, plenty of concetps you need to explre and master: the various WebRTC interfaces, codec & media processing, network address translations (NATs) & firewalls, UDP, and many more
@@ -32,6 +33,7 @@
   **Pros**:
   * comparing to long polling, it eliminates the need for a new connection with every request, drastically reducing the size of each msg (no HTTP headers)
   * As an event-driven technology, it allows data to be transfereed without the client requesting it (server side event).  
+  
   **Cons**:
   * stafeful, ticky to handle, especially at scale, becuase it requires the server layer to keep track of each individual WebSocket connection and maintain state info
   * don't automatically recover when connections are terminated, you need to implement yourself
