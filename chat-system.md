@@ -86,7 +86,7 @@
   1. User A sends a chat message to Chat server 1 (server was assigned by discovery service while logging in)
   2. Chat server 1 obtains a message ID from ID generator
   3. Chat server 1 sends the msg to the msg sync queue
-  4. The msg is stored in a key-value store, after this we can send back ack to client to mart msg as sent on the client side
+  4. The msg is stored in a key-value store, after this we can send back ack to client to mart msg as sent on the client side  
   4.1 Here there should be another user mapping service, every time when a user log in, it will maintain the userId and the websocket connection ID. And it will find user B's websocket connection 
   6. a. if user B is online, the msg is forwarded to Chat server 2 where User B is connected. b. if B is offline, a push notification is sent from PN service
   7. Chat server 2 forwards to msg to User B.
