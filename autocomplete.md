@@ -17,3 +17,9 @@
 * create table with two fields, string and frequency
 * when select * from table where string like 'prefix%' order by freqency desc limit 5
 * this will only work with small data set
+# Trie
+* root node is empty
+* each node has 26 children
+* each node stores the whole string starting from root node
+* frequency is stored inside the node
+* first find the starting node by using the prefix, then traverse the sub tree to find all leaf nodes
