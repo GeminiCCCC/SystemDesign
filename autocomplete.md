@@ -23,3 +23,8 @@
 * each node stores the whole string starting from root node
 * frequency is stored inside the node
 * first find the starting node by using the prefix, then traverse the sub tree to find all leaf nodes
+# Optimization
+* to get top k, worst case scenario is to traverse the entire tree
+* step 1: limit k to like 50, since users won't type in a long word
+* step 2: cache top k at each node
+* we trade more space with less time which is a good deal
