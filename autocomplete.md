@@ -28,3 +28,9 @@
 * step 1: limit k to like 50, since users won't type in a long word
 * step 2: cache top k at each node
 * we trade more space with less time which is a good deal
+# Data gathering service
+* not real-time
+* from analytics logs (e.g. words and datetime), no index
+* then use aggregation to aggregate on an interval (depends on use case, it could be daily or weekly). (Spark?)
+* then use algorithms wo convert aggregated data into a trie structure
+* store the trie Data into DB (string, date string, frequency of that week). Option 1: Document store like mongoDB, because we can periodically store a snapshot of serialized data, and mongoDB is a good fit fot serialized data. Option 2: Key-value store, where key is the prefix string and value is the top K results
