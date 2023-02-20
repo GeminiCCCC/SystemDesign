@@ -13,3 +13,7 @@
 * 10 mil * 20 * 10 / 86400 = 2 bil / 86400 ~= 24K QPS
 * peak QPS = 24k * 2 = 48K 
 * assume 20% of daily queries are new, 10 mil * 20 * 10 * 0.2 = 0.4 GB
+# Simple version
+* create table with two fields, string and frequency
+* when select * from table where string like 'prefix%' order by freqency desc limit 5
+* this will only work with small data set
