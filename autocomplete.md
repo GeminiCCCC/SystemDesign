@@ -33,6 +33,28 @@
 # Data gathering service
 * not real-time
 * from analytics logs (e.g. words and datetime), no index
+* for a large scale system, logging each log may be too much, we can also sample the logs
 * then use aggregation to aggregate on an interval (depends on use case, it could be daily or weekly). (Spark?)
 * then use algorithms wo convert aggregated data into a trie structure
-* store the trie Data into DB (string, date string, frequency of that week). Option 1: Document store like mongoDB, because we can periodically store a snapshot of serialized data, and mongoDB is a good fit fot serialized data. Option 2: Key-value store, where key is the prefix string and value is the top K results
+* store the trie Data into DB (string, date string, frequency of that week). 
+  * Option 1: Document store like mongoDB, because we can periodically store a snapshot of serialized data, and mongoDB is a good fit fot serialized data. 
+  * Option 2: Key-value store, where key is the prefix string and value is the top K results
+* also store result in cache weekly
+# Query service
+* query gets sent to LB
+* LB routes the requests to API servers
+* query redis cache first
+* if cache missed, query trie DB
+* result can also be stored in broswer cache to improve response time
+# Trie operations
+* Create: weekly from aggregated logs
+* Update: 
+  * option 1: regenrate weekly
+  * option 2: if trie is small, update individual node is also acceptable. All its parent nodes will be updated
+  ![image](https://user-images.githubusercontent.com/68412871/220191208-d8117c36-9f30-4dda-8805-95daffd2deb1.png)
+* Delete: We need to remove hateful, violent, sexually explicit or dangeroud autocomplet suggestions. We can add a filter layer between API servers and cache. And asynchronosly remove actuall data from trie DB
+# Scale the storage
+* when the data cannot be stored in one server, we need to shard the data. 
+* naive approach is shard by english letter, but that will only give us 26 partitions and could result to hot partitions
+* to partition more, we can shard on second or even third letters e.g aa - ag
+* an improvement is to maintain a lookup 
