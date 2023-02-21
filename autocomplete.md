@@ -57,4 +57,8 @@
 * when the data cannot be stored in one server, we need to shard the data. 
 * naive approach is shard by english letter, but that will only give us 26 partitions and could result to hot partitions
 * to partition more, we can shard on second or even third letters e.g aa - ag
-* an improvement is to maintain a lookup 
+* an improvement is to maintain a lookup with key is partition key and value is the records for the key, and group smaller group together
+* or we could hash the key and partition the hash to have better even distribution
+# Follow up
+* multi language support: store unicode characters in trie nodes
+* how to support realtime treading events: data comes as streaming, use Spark and Kafka etc.
